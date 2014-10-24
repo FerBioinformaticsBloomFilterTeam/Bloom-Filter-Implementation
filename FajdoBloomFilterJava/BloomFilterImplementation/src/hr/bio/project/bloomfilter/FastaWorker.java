@@ -9,6 +9,7 @@ public class FastaWorker {
 		fastaAll = readFasta.getFastaString();
 		FastaStringProcessor processor = new FastaStringProcessor(fastaAll);
 		processor.processFastaString();
+		
 	} 
 
 }
