@@ -16,11 +16,13 @@ public class BloomFilter {
 	}
 	
 	public void addElemToBloom(String fastaPart) {
-		int hashFNV, hashMurmur;
+		int hashFNV, hashMurmur, hashJenkins;
 		hashFNV = (int) hasher.FNVhash(fastaPart);
 		hashFNV = hashFNV % (size*4);
 		hashMurmur = (int) hasher.murmurHash(fastaPart);
 		hashMurmur = hashMurmur % (size*4);
+		hashJenkins = hasher.jenkinsHash(fastaPart);
+		hashJenkins = hashJenkins % (size*4);
 	}
 	
 }

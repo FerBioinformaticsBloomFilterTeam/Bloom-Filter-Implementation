@@ -82,6 +82,23 @@ public class Hasher {
 		hash = hash*0xc2b2ae35 % Integer.MAX_VALUE;
 		hash = (hash^(hash >> 16)) % Integer.MAX_VALUE;
 		return hash;
-	} 
+	}
+	
+	public int jenkinsHash(String fastaPiece) {
+		int hash = 0;
+		int i;
+		char[] c;
+		c = fastaPiece.toCharArray();
+		
+		for (i = 0; i < fastaPiece.length(); i++) {
+			hash = hash + c[i];
+			hash = hash + (hash << 10);
+			hash = hash^(hash >> 6);
+		}
+		hash = hash +(hash << 3);
+		hash = hash^(hash >> 11);
+		hash = hash + (hash << 15);
+		return hash;
+	}
 	
 }
