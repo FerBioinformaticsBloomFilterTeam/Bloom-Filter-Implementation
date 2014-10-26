@@ -84,20 +84,20 @@ public class Hasher {
 		return hash;
 	}
 	
-	public int jenkinsHash(String fastaPiece) {
-		int hash = 0;
+	public long jenkinsHash(String fastaPiece) {
+		long hash = 0;
 		int i;
 		char[] c;
 		c = fastaPiece.toCharArray();
 		
 		for (i = 0; i < fastaPiece.length(); i++) {
-			hash = hash + c[i];
-			hash = hash + (hash << 10);
-			hash = hash^(hash >> 6);
+			hash = (hash + c[i]) % Integer.MAX_VALUE;
+			hash = (hash + (hash << 10)) % Integer.MAX_VALUE;
+			hash = (hash^(hash >> 6)) % Integer.MAX_VALUE;
 		}
-		hash = hash +(hash << 3);
-		hash = hash^(hash >> 11);
-		hash = hash + (hash << 15);
+		hash = (hash + (hash << 3)) % Integer.MAX_VALUE;
+		hash = (hash^(hash >> 11)) % Integer.MAX_VALUE;
+		hash = (hash + (hash << 15)) % Integer.MAX_VALUE;
 		return hash;
 	}
 	
