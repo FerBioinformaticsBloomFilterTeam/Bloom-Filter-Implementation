@@ -1,5 +1,6 @@
 package hr.bio.project.bloomfilter;
 
+
 public class FastaStringProcessor {
 	private String fastaString;
 	private int fastaSize;

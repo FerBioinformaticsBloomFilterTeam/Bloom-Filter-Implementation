@@ -1,7 +1,9 @@
 package hr.bio.project.bloomfilter;
 
-public class FastaWorker {
+import java.util.Random;
 
+public class FastaWorker {
+	
 	public static void main(String[] args) {
 		
 		String fastaAll;
@@ -10,6 +12,7 @@ public class FastaWorker {
 		FastaStringProcessor processor = new FastaStringProcessor(fastaAll);
 		processor.processFastaString();
 		
-	} 
+	}
+
 
 }
