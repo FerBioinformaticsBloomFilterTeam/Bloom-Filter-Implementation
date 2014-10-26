@@ -10,12 +10,11 @@ public class FastaStringProcessor {
 		this.fastaSize = fastaString.length();
 	}
 	
-	public void processFastaString() {
+	public void processFastaString(BloomFilter bloomey) {
 		
 		int fastaSizeCopy = fastaSize;
 		int number=0;
 		String fastaCut;
-		BloomFilter bloomey = new BloomFilter(fastaSize);
 		
 		while (fastaSizeCopy>0) {
 			if (fastaSizeCopy<20) {
