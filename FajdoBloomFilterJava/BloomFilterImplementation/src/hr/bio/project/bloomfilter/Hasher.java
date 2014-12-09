@@ -52,7 +52,7 @@ public class Hasher {
 			char[] c;
 			c = k.toCharArray();
 			if (k.length() == 4) {
-				l = (c[0]*2^24 + c[1]*2^16 + c[2]*2^8 + c[3]) % Integer.MAX_VALUE;
+				l = (c[0]*(int)Math.pow(2,24) + c[1]*(int)Math.pow(2, 16) + c[2]*(int)Math.pow(2, 8) + c[3]) % Integer.MAX_VALUE;
 				l = l*c1  % Integer.MAX_VALUE;
 				l = ((l << r1) | (l >> (32 - r1)))  % Integer.MAX_VALUE;
 				l = l*c2  % Integer.MAX_VALUE;
@@ -61,10 +61,10 @@ public class Hasher {
 				hash = (hash*m + n)  % Integer.MAX_VALUE;
 			} else {
 				if (k.length() == 3) {
-					l = (c[0]*2^16 + c[1]*2^8 + c[2]) % Integer.MAX_VALUE;
+					l = (c[0]*(int)Math.pow(2, 16) + c[1]*(int)Math.pow(2, 8) + c[2]) % Integer.MAX_VALUE;
 				}
 				if (k.length() == 2) {
-					l = (c[0]*2^8 + c[1]) % Integer.MAX_VALUE;
+					l = (c[0]*(int)Math.pow(2, 8) + c[1]) % Integer.MAX_VALUE;
 				}
 				if (k.length() == 1) {
 					l = (c[0]) % Integer.MAX_VALUE;
