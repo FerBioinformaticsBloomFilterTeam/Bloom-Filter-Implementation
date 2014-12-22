@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "hash_funs.h"
+#include "bloom_filter.h"
 
 int main()
 {
