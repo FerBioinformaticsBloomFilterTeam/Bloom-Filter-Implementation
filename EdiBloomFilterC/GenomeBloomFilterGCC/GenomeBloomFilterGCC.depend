@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1419249314 source:e:\materijali za ucenje\9. semestar\bioinformatika\projekti\bloom-filter-implementation\edibloomfilterc\genomebloomfiltergcc\hash_funs.c
+	"hash_funs.h"
+	<stdio.h>
+
+1419206973 e:\materijali za ucenje\9. semestar\bioinformatika\projekti\bloom-filter-implementation\edibloomfilterc\genomebloomfiltergcc\hash_funs.h
+	<inttypes.h>
+
+1419249349 source:e:\materijali za ucenje\9. semestar\bioinformatika\projekti\bloom-filter-implementation\edibloomfilterc\genomebloomfiltergcc\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"hash_funs.h"
+
