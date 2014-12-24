@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="-DDEBUG" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-DNDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -31,6 +33,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="bloom_filter.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="bloom_filter.h" />
+		<Unit filename="hash_funs.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="hash_funs.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

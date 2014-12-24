@@ -10,13 +10,25 @@ uint32_t (*hashes[2])(void*, unsigned int, uint32_t);
 uint8_t k = 0;
 uint32_t *indices = 0;
 
+void init_opt(float p, uint32_t n) {
+    float fbit = ceilf(-log2f(p) / logf(2.0f)  * n);
+    k = (uint8_t)ceilf(-logf(p));
+    printf("Opt k: %u\n", k);
+    hashes[0] = fnv_hash;
+    hashes[1] = murmur_hash;
+    filter_bit_len = ceilf(fbit);
+    printf("Bit len: %u\n", filter_bit_len);
+    filter_byte_len = filter_bit_len / 8 + (filter_bit_len % 8 != 0 ? 1 : 0);
+    filter = (uint8_t *) calloc(filter_byte_len, 1);
+    indices = (uint32_t *) calloc(k, sizeof(uint32_t));
+}
+
 void init(float p, uint32_t n, uint8_t k1) {
-    float fbit = -logf(p) / powf(logf(2), 2.0f) * n;
     float fbit2 = 1.0f / (1.0f - powf(1.0f - powf(p, 1.0f / k1), 1.0f / k1 / n));
     hashes[0] = fnv_hash;
     hashes[1] = murmur_hash;
     k = k1;
-    filter_bit_len = ceilf(fbit);
+    filter_bit_len = ceilf(fbit2);
     printf("Bit len: %u\n", filter_bit_len);
     filter_byte_len = filter_bit_len / 8 + (filter_bit_len % 8 != 0 ? 1 : 0);
     filter = (uint8_t *) calloc(filter_byte_len, 1);
@@ -30,6 +42,14 @@ void refresh_indices(void* obj, unsigned int len) {
     for(i = 0; i < k; i++) {
         indices[i] = (fst_hash + i * snd_hash) % filter_bit_len;
     }
+}
+
+void print_filter() {
+    uint32_t i = 0;
+    for (i = 0; i < filter_byte_len; i++) {
+        printf("%02x", filter[i]);
+    }
+    printf("\n");
 }
 
 int get_bit(uint32_t index) {
