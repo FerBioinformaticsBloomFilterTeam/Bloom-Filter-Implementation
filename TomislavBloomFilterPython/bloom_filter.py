@@ -44,5 +44,11 @@ class bloom_filter(object):
         return True
 
     def mass_hash(self, some_string, hashnum, bucketnum):
-        # TO BE IMPLEMENTED
-        pass
+        hashes = list()
+
+        # inspiration: http://willwhim.wpengine.com/2011/09/03/producing-n-hash-functions-by-hashing-only-once/
+        for i in range(0, hashnum):
+            hash = (fnv_hash(some_string) + murmur_hash(some_string) * i) % bucketnum
+            hashes.append(hash)
+
+        return hashes
