@@ -3,8 +3,6 @@
 
 import argparse
 from bloom_filter import *
-from hashes import *
-
 
 def fill_filter_from_file(filepath, filter, word_length):
     with open(filepath) as f:
