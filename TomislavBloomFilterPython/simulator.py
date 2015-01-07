@@ -3,10 +3,19 @@
 
 import argparse
 from bloom_filter import *
+from math import log
+from math import ceil
 
-def fill_filter_from_file(filepath, filter, word_length):
+def fill_filter_from_file(filepath, word_length):
     with open(filepath) as f:
         contents = ''.join(map(lambda x: x.strip("\r\n"), f.readlines()[1:]))
+
+    elemnum = len(contents) / word_length
+
+    optimal_filter_len = 20
+    optimal_hash_num = int(ceil((elemnum / optimal_filter_len) * log(2)))
+
+    filter = bloom_filter(optimal_filter_len, optimal_hash_num)
 
     ind = 0
     while True:
@@ -18,6 +27,8 @@ def fill_filter_from_file(filepath, filter, word_length):
             filter.add(word)
 
         ind += word_length
+
+    return filter
 
 # every line in the form of: <word> <expected_status>,
 # where expected_status is 0 or 1
@@ -44,11 +55,10 @@ parser.add_argument('test_filepaths', metavar = 'test_paths', type=str,
 
 args = parser.parse_args()
 
-filter = bloom_filter(50, 3)
-
 print "Initializing bloom filter from init file..."
-fill_filter_from_file(args.init_filepath, filter, args.word_size)
+filter = fill_filter_from_file(args.init_filepath, args.word_size)
 print "DONE!\n-------------"
+
 print "Initializing testing for all test files...\n-------------"
 for test_filepath in args.test_filepaths.split(','):
     print "Moving onto next file..."
