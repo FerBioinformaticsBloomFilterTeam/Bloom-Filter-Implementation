@@ -154,5 +154,54 @@ public class BloomFilter {
 		}
 		return true;
 	}
+	
+	/**
+	 * For size of bloom filter and number of elements defined, returns optimal number of hash functions
+	 * @param sizeOfBloomFilter
+	 * @param numberOfElements
+	 * @return int optimal number of hash functions for specified bloom filter size and number of elements
+	 */
+	public static int getNumberOfHashFunctions(int sizeOfBloomFilter, int numberOfElements) {
+		if (sizeOfBloomFilter <= 0) {
+			throw new NegativeArraySizeException("size of bloom filter can not be negative or zero");
+		}
+		
+		if (numberOfElements <=0) {
+			throw new IllegalArgumentException("number of elements can not be negative or zero");
+		}
+		
+		long numberOfHashFunctions = (long) Math.ceil((float) sizeOfBloomFilter * Math.log(2.0) / numberOfElements);
+		
+		if (numberOfHashFunctions > Integer.MAX_VALUE) {
+			return Integer.MAX_VALUE;
+		}
+		
+		return (int) numberOfHashFunctions;
+	}
+	
+	/**
+	 * For number of elements in bloom filter and false positive propability defined, 
+	 * returns size of bloom filter
+	 * @param numberOfElements
+	 * @param falsePositivePropability
+	 * @return int optimal size of bloom filter for specified number of elements and false positive propability
+	 */
+	public static int getSizeOfBloomFilter(int numberOfElements, float falsePositivePropability) {
+		if (numberOfElements <= 0) {
+			throw new NegativeArraySizeException("number of elements of bloom filter can not be negative or zero");
+		}
+		
+		if (falsePositivePropability <=0.0 || falsePositivePropability >= 1.0) {
+			throw new IllegalArgumentException("false positive probability can not be negative or above one");
+		}
+		
+		long sizeOfBloomFilter = (long)Math.ceil( -numberOfElements * Math.log(falsePositivePropability) / Math.pow(Math.log(2.0), 2.0));
+		
+		if (sizeOfBloomFilter > Integer.MAX_VALUE) {
+			return Integer.MAX_VALUE;
+		}
+		
+		return (int) sizeOfBloomFilter;
+	}
 
 }
