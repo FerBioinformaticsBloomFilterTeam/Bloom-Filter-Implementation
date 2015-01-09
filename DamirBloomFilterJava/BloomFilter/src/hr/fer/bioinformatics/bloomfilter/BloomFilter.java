@@ -85,16 +85,44 @@ public class BloomFilter {
 	}
 	
 	/**
-	 * Adds word in a bloom filter
+	 * Adds word in a bloom filter, StringCoding.encode(value, 0, value.length);
+	 * @param word
+	 */
+	public void addWord(char[] word) {
+		addWord(new String(word));
+	}
+	
+	/**
+	 * Adds word in a bloom filter, StringCoding.encode(value, 0, value.length);
 	 * @param word
 	 */
 	public void addWord(String word) {
+		if (word.isEmpty()) {
+			return;
+		}
+		
 		byte[] wordInBytes = word.getBytes();
 		for (HashFunction hashFunction : hashFunctions) {
 			int filterIndex = hashFunction.hash(wordInBytes);
+			
 			filterIndex = filterIndex % bitArray.size();
+			if (filterIndex < 0) {
+				filterIndex += bitArray.size();
+			}
+			
 			bitArray.set(filterIndex);
 		}
+	}
+	
+	/**
+	 * Checks if word is in bloom filter, if it returns false, 
+	 * word is for sure not added in filer, but if it returns true,
+	 * word may not be really added in filer (bloom filter properties)
+	 * @param word
+	 * @return
+	 */
+	public boolean isInFilter(char[] word) {
+		return isInFilter(new String(word));
 	}
 	
 	/**
@@ -108,7 +136,12 @@ public class BloomFilter {
 		byte[] wordInBytes = word.getBytes();
 		for (HashFunction hashFunction : hashFunctions) {
 			int filterIndex = hashFunction.hash(wordInBytes);
+			
 			filterIndex = filterIndex % bitArray.size();
+			if (filterIndex < 0) {
+				filterIndex += bitArray.size();
+			}
+			
 			if (bitArray.get(filterIndex) == false) {
 				return false;
 			}
