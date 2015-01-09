@@ -6,5 +6,5 @@ public interface HashFunction {
 	 * @param byteArrayToHash
 	 * @return
 	 */
-	public int hash(byte[] byteArrayToHash);
+	public long hash(byte[] byteArrayToHash);
 }

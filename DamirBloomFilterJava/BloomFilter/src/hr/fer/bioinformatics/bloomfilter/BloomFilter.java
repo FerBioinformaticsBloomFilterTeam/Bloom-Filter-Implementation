@@ -1,7 +1,7 @@
 package hr.fer.bioinformatics.bloomfilter;
 
 import hashfunctions.FakeHash;
-import hashfunctions.FowlerNollVo1Hash;
+import hashfunctions.FowlerNollVo1AlternateHash;
 import hashfunctions.HashFunction;
 import hashfunctions.MurmurHash;
 
@@ -23,7 +23,7 @@ public class BloomFilter {
      * @param numberOfHashFunctions
      */
     public BloomFilter(int sizeOfBloomFilter, int numberOfHashFunctions) {
-    	this(sizeOfBloomFilter, numberOfHashFunctions, new HashFunction[]{new MurmurHash(), new FowlerNollVo1Hash()});    	
+    	this(sizeOfBloomFilter, numberOfHashFunctions, new HashFunction[]{new MurmurHash(), new FowlerNollVo1AlternateHash()});    	
 	}
     
     /**
@@ -103,14 +103,14 @@ public class BloomFilter {
 		
 		byte[] wordInBytes = word.getBytes();
 		for (HashFunction hashFunction : hashFunctions) {
-			int filterIndex = hashFunction.hash(wordInBytes);
+			long filterIndex = hashFunction.hash(wordInBytes);
 			
 			filterIndex = filterIndex % bitArray.size();
 			if (filterIndex < 0) {
 				filterIndex += bitArray.size();
 			}
 			
-			bitArray.set(filterIndex);
+			bitArray.set((int)filterIndex);
 		}
 	}
 	
@@ -135,14 +135,15 @@ public class BloomFilter {
 	public boolean isInFilter(String word) {
 		byte[] wordInBytes = word.getBytes();
 		for (HashFunction hashFunction : hashFunctions) {
-			int filterIndex = hashFunction.hash(wordInBytes);
+			long filterIndex = hashFunction.hash(wordInBytes);
 			
 			filterIndex = filterIndex % bitArray.size();
+			
 			if (filterIndex < 0) {
 				filterIndex += bitArray.size();
 			}
 			
-			if (bitArray.get(filterIndex) == false) {
+			if (bitArray.get((int)filterIndex) == false) {
 				return false;
 			}
 		}

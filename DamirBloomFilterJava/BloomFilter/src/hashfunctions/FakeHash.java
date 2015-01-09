@@ -10,7 +10,7 @@ public class FakeHash implements HashFunction{
 	 * @param i
 	 */
 	public FakeHash(int i) {
-		this(new MurmurHash(), new FowlerNollVo1Hash(), i);
+		this(new MurmurHash(), new FowlerNollVo1AlternateHash(), i);
 	}
 	
 
@@ -27,8 +27,8 @@ public class FakeHash implements HashFunction{
 
 
 	@Override
-	public int hash(byte[] byteArrayToHash) {
+	public long hash(byte[] byteArrayToHash) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0L;
 	}
 }

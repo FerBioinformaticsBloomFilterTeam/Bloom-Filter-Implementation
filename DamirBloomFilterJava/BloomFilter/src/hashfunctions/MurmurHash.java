@@ -32,7 +32,7 @@ public class MurmurHash implements HashFunction {
 	}
 
 	@Override
-	public int hash(byte[] byteArrayToHash) {
+	public long hash(byte[] byteArrayToHash) {
 		int length = byteArrayToHash.length;
 		
 		if (length == 0) {
@@ -76,7 +76,7 @@ public class MurmurHash implements HashFunction {
 	    hashValue = hashValue * 0xc2b2ae35;
 	    hashValue = hashValue | (hashValue >> 16);
 		
-		return hashValue;
+		return (long)hashValue;
 	}
 
 }
