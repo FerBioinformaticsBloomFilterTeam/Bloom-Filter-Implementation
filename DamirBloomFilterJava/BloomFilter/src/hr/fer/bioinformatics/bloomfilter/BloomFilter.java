@@ -6,7 +6,6 @@ import hashfunctions.HashFunction;
 import hashfunctions.MurmurHash;
 
 import java.util.Arrays;
-import java.util.BitSet;
 
 /**
  * Bloom filter implementation
@@ -15,7 +14,7 @@ import java.util.BitSet;
  */
 public class BloomFilter {
     private HashFunction[] hashFunctions;
-    private BitSet bitArray;
+    private BloomFilterBitSet bitArray;
     
     /**
      * Creates BloomFilter with default Murmur and Fowler-Noll-Vo hash functions
@@ -35,8 +34,8 @@ public class BloomFilter {
      * @param hashfunctions array
      */
     public BloomFilter(int sizeOfBloomFilter, int numberOfHashFunctions, HashFunction[] hashfunctions) {
-    	if (sizeOfBloomFilter > 0) {
-			throw new IllegalArgumentException("Size can't be null");
+    	if (sizeOfBloomFilter <= 0) {
+			throw new IllegalArgumentException("Size can't be zero or less then zero");
 		}
     	
     	if (numberOfHashFunctions <= 0) {
@@ -53,7 +52,7 @@ public class BloomFilter {
 			}
 		}
     	
-		bitArray = new BitSet(sizeOfBloomFilter);
+		bitArray = new BloomFilterBitSet(sizeOfBloomFilter);
 		this.hashFunctions = generateHashFunctions(hashfunctions, numberOfHashFunctions);
 	}
 
