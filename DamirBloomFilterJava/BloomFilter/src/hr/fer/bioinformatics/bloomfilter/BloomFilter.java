@@ -8,17 +8,22 @@ import hashfunctions.MurmurHash;
 import java.util.Arrays;
 import java.util.BitSet;
 
+/**
+ * Bloom filter implementation
+ * @author dciganovic
+ *
+ */
 public class BloomFilter {
     private HashFunction[] hashFunctions;
     private BitSet bitArray;
     
     /**
      * Creates BloomFilter with default Murmur and Fowler-Noll-Vo hash functions
-     * @param size
-     * @param k
+     * @param sizeOfBloomFilter
+     * @param numberOfHashFunctions
      */
-    public BloomFilter(int size, int k) {
-    	this(size, k, new HashFunction[]{new MurmurHash(), new FowlerNollVo1Hash()});    	
+    public BloomFilter(int sizeOfBloomFilter, int numberOfHashFunctions) {
+    	this(sizeOfBloomFilter, numberOfHashFunctions, new HashFunction[]{new MurmurHash(), new FowlerNollVo1Hash()});    	
 	}
     
     /**
@@ -77,6 +82,38 @@ public class BloomFilter {
 		
 		return hashFunctionsNew;
 		
+	}
+	
+	/**
+	 * Adds word in a bloom filter
+	 * @param word
+	 */
+	public void addWord(String word) {
+		byte[] wordInBytes = word.getBytes();
+		for (HashFunction hashFunction : hashFunctions) {
+			int filterIndex = hashFunction.hash(wordInBytes);
+			filterIndex = filterIndex % bitArray.size();
+			bitArray.set(filterIndex);
+		}
+	}
+	
+	/**
+	 * Checks if word is in bloom filter, if it returns false, 
+	 * word is for sure not added in filer, but if it returns true,
+	 * word may not be really added in filer (bloom filter properties)
+	 * @param word
+	 * @return
+	 */
+	public boolean isInFilter(String word) {
+		byte[] wordInBytes = word.getBytes();
+		for (HashFunction hashFunction : hashFunctions) {
+			int filterIndex = hashFunction.hash(wordInBytes);
+			filterIndex = filterIndex % bitArray.size();
+			if (bitArray.get(filterIndex) == false) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
