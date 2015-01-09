@@ -9,16 +9,18 @@ from math import ceil
 filled with the words from the initialization file """
 def fill_filter_from_file(filepath, max_error_prob):
     with open(filepath) as f:
-        words = map(lambda x: x.strip("\r\n"), f.readlines()[1:])
+        word_num = int(f.readline().strip("\r\n"))
 
-    # calculate optimal parameters for the bloom filter
-    optimal_hash_num = int(ceil(log(1 / max_error_prob)))
-    optimal_filter_len = int(ceil(len(words) * log(1 / max_error_prob) / (log(2) ** 2)))
+        print "Number of words is " + str(word_num)
 
-    filter = bloom_filter(optimal_filter_len, optimal_hash_num)
+        # calculate optimal parameters for the bloom filter
+        optimal_hash_num = int(ceil(log(1 / max_error_prob)))
+        optimal_filter_len = int(ceil(word_num * log(1 / max_error_prob) / (log(2) ** 2)))
 
-    # fill the filter with the words from the init file
-    for word in words:
-        filter.add(word)
+        filter = bloom_filter(optimal_filter_len, optimal_hash_num)
 
-    return filter
+        # fill the filter with the words from the init file
+        for line in f:
+            filter.add(line.strip("\r\n"))
+
+        return filter

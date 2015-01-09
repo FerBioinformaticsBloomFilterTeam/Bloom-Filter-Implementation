@@ -12,22 +12,24 @@ def test_filter_from_file(filepath, filter, print_successes = False, print_failu
     false_negatives = 0
 
     with open(filepath) as f:
-        lines = map(lambda x: x.strip("\r\n"), f.readlines())
 
-    # iterate through test lines and conduct each test
-    for sequence, expected_status in map(lambda x: (x.split()[0], bool(int(x.split()[1]))), lines):
-        presence_status = bool(filter.test(sequence))
-        
-        if presence_status == expected_status:
-            if print_successes:
-                print "Testing for sequence " + sequence + " is a match"
-        else:
-            if expected_status:
-                false_negatives += 1
+        # iterate through test lines and conduct each test
+        for line in f:
+            sequence, expected_status = line.strip("\r\n").split()
+            expected_status = bool(int(expected_status))
+
+            presence_status = filter.test(sequence)
+                
+            if presence_status == expected_status:
+                if print_successes:
+                    print "Testing for sequence " + sequence + " is a match"
             else:
-                false_positives += 1
-            if print_failures:
-                print "Testing for sequence %s does NOT match - Expected %s but got %s" % (sequence, expected_status, presence_status)
+                if expected_status:
+                    false_negatives += 1
+                else:
+                    false_positives += 1
+                if print_failures:
+                    print "Testing for sequence %s does NOT match - Expected %s but got %s" % (sequence, expected_status, presence_status)
 
     return (false_positives, false_negatives)
 
@@ -82,16 +84,16 @@ if __name__ == "__main__":
     ##############
 
     print "Initializing and testing bloom filter...\n"
-    pr = cProfile.Profile()
-    pr.enable()
+    #pr = cProfile.Profile()
+    #pr.enable()
 
     init_and_test_on_single_file(args.init_path, args.test_path, args.max_tolerance_perc)
 
-    pr.disable()
-    s = StringIO.StringIO()
-    sortby = 'cumulative'
-    ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
-    ps.print_stats()
-    print s.getvalue()
+    #pr.disable()
+    #s = StringIO.StringIO()
+    #sortby = 'cumulative'
+    #ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+    #ps.print_stats()
+    #print s.getvalue()
     #print "\nDone."
     #print "Total time duration: "
