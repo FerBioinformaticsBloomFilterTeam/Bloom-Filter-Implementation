@@ -43,6 +43,8 @@ class bloom_filter(object):
         # item is probably inside
         return True
 
+    # calculates hashnum different hashes of some_string
+    # in range of 0 to bucketnum-1
     def mass_hash(self, some_string, hashnum, bucketnum):
         hashes = list()
 

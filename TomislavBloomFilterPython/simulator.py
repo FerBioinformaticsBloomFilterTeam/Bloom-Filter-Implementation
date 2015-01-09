@@ -32,38 +32,19 @@ def fill_filter_from_file(filepath, word_length, max_error_prob):
 
     return filter
 
-# every line in the form of: <word> <expected_status>,
-# where expected_status is 0 or 1
-def test_filter_from_file(filepath, filter, print_successes = False):
-    with open(filepath) as f:
-        lines = map(lambda x: x.strip("\r\n"), f.readlines())
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Initialize and test a bloom filter.')
+    parser.add_argument('word_size', metavar = 'word_size', type=int,
+                       help='Word size')
+    parser.add_argument('init_filepath', metavar='init_path', type=str,
+                       help='Path to the initialization file')
+    parser.add_argument('test_filepaths', metavar = 'test_paths', type=str,
+                       help='Paths to testing files')
 
-    # iterate through test lines and conduct each test
-    for sequence, expected_status in map(lambda x: (x.split()[0], int(x.split()[1])), lines):
-        presence_status = bool(filter.test(sequence))
-        
-        if presence_status == bool(expected_status):
-            if print_successes:
-                print "Testing for sequence " + sequence + " is a match"
-        else:
-            print "Testing for sequence %s does NOT match - Expected %s but got %s" % (sequence, expected_status, presence_status)
+    args = parser.parse_args()
 
-parser = argparse.ArgumentParser(description='Initialize and test a bloom filter.')
-parser.add_argument('word_size', metavar = 'word_size', type=int,
-                   help='Word size')
-parser.add_argument('init_filepath', metavar='init_path', type=str,
-                   help='Path to the initialization file')
-parser.add_argument('test_filepaths', metavar = 'test_paths', type=str,
-                   help='Paths to testing files')
 
-args = parser.parse_args()
-
-print "Initializing bloom filter from init file..."
-filter = fill_filter_from_file(args.init_filepath, args.word_size, 0.1)
-print "DONE!\n-------------"
-
-print "Initializing testing for all test files...\n-------------"
-for test_filepath in args.test_filepaths.split(','):
-    print "Moving onto next file..."
-    test_filter_from_file(test_filepath, filter)
-    print "DONE!\n-----------"
+    print "Example bloom filter run..."
+    print "Initializing bloom filter from init file..."
+    filter = fill_filter_from_file(args.init_filepath, args.word_size, 0.1)
+    print "DONE!\n-------------"
