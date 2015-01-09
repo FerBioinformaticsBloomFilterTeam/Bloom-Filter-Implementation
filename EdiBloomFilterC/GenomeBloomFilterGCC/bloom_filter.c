@@ -12,7 +12,7 @@ uint32_t *indices = 0;
 
 void init_opt(float p, uint32_t n) {
     float fbit = ceilf(-log2f(p) / logf(2.0f)  * n);
-    k = (uint8_t)ceilf(-logf(p));
+    k = (uint8_t)ceilf(-log2f(p));
     printf("Opt k: %u\n", k);
     hashes[0] = fnv_hash;
     hashes[1] = murmur_hash;
