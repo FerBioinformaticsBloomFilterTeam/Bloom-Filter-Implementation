@@ -84,16 +84,16 @@ if __name__ == "__main__":
     ##############
 
     print "Initializing and testing bloom filter...\n"
-    #pr = cProfile.Profile()
-    #pr.enable()
+    pr = cProfile.Profile()
+    pr.enable()
 
     init_and_test_on_single_file(args.init_path, args.test_path, args.max_tolerance_perc)
 
-    #pr.disable()
-    #s = StringIO.StringIO()
-    #sortby = 'cumulative'
-    #ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
-    #ps.print_stats()
-    #print s.getvalue()
+    pr.disable()
+    s = StringIO.StringIO()
+    sortby = 'cumulative'
+    ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+    ps.print_stats()
+    print s.getvalue()
     #print "\nDone."
     #print "Total time duration: "
