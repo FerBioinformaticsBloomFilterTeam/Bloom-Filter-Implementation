@@ -1,4 +1,4 @@
-package hashfunctions;
+package hr.fer.bioinformatics.hashfunctions;
 
 import java.nio.ByteBuffer;
 

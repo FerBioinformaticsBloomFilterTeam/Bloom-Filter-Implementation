@@ -1,4 +1,4 @@
-package hashfunctions;
+package hr.fer.bioinformatics.hashfunctions;
 
 /**
  * FakeHass class is used to act like a regular hash function. It is used 

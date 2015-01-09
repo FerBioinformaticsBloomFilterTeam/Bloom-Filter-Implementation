@@ -1,4 +1,4 @@
-package hashfunctions;
+package hr.fer.bioinformatics.hashfunctions;
 /**
  * Fowler-Noll-Vo hash function algorithm 1 (alternate) implementation
  * @author dciganovic

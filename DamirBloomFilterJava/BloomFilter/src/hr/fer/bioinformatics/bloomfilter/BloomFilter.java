@@ -1,9 +1,9 @@
 package hr.fer.bioinformatics.bloomfilter;
 
-import hashfunctions.FakeHash;
-import hashfunctions.FowlerNollVo1AlternateHash;
-import hashfunctions.HashFunction;
-import hashfunctions.MurmurHash;
+import hr.fer.bioinformatics.hashfunctions.FakeHash;
+import hr.fer.bioinformatics.hashfunctions.FowlerNollVo1AlternateHash;
+import hr.fer.bioinformatics.hashfunctions.HashFunction;
+import hr.fer.bioinformatics.hashfunctions.MurmurHash;
 
 import java.util.Arrays;
 
