@@ -47,6 +47,12 @@ public class BloomFilter {
 			throw new NullPointerException("Number of hash functions should be at least two");
 		}
     	
+    	for (int i = 0; i < hashfunctions.length; i++) {
+			if (hashfunctions[i] == null) {
+				throw new NullPointerException("hash function can't be null. Hash function index: " + i);
+			}
+		}
+    	
 		bitArray = new BitSet(sizeOfBloomFilter);
 		this.hashFunctions = generateHashFunctions(hashfunctions, numberOfHashFunctions);
 	}
@@ -97,7 +103,7 @@ public class BloomFilter {
 	 * @param word
 	 */
 	public void addWord(String word) {
-		if (word.isEmpty()) {
+		if (word == null || word.isEmpty()) {
 			return;
 		}
 		
