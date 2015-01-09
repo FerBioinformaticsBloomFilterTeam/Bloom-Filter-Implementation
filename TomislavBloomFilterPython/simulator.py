@@ -6,6 +6,8 @@ from bloom_filter import *
 from math import log
 from math import ceil
 
+"""Returns a bloom_filter with optimal storage parameters for initialization file,
+filled with the words from the initialization file """
 def fill_filter_from_file(filepath, word_length, max_error_prob):
     with open(filepath) as f:
         contents = ''.join(map(lambda x: x.strip("\r\n"), f.readlines()[1:]))
@@ -42,7 +44,6 @@ if __name__ == "__main__":
                        help='Paths to testing files')
 
     args = parser.parse_args()
-
 
     print "Example bloom filter run..."
     print "Initializing bloom filter from init file..."

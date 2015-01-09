@@ -53,6 +53,21 @@ def init_and_test_on_multiple_files(word_size, init_path, test_path_list, max_to
 
     print "Batch test DONE."
 
+def test1(word_size, init_path, test_path_list, max_tolerance_perc):
+    print "Initializing testing for all test files...\n-------------"
+
+    init_and_test_on_single_file(word_size, 
+        init_path, 
+        test_path_list[0], 
+        max_tolerance_perc)
+
+    if len(test_path_list) > 1:
+        init_and_test_on_multiple_files(
+            word_size, 
+            init_path, 
+            test_path_list, 
+            max_tolerance_perc)
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Initialize and test a bloom filter.')
     parser.add_argument('word_size', metavar = 'word_size', type=int,
@@ -61,7 +76,7 @@ if __name__ == "__main__":
                        help='Path to the initialization file')
     parser.add_argument('test_paths', metavar = 'test_paths', type=str,
                        help='Paths to testing files')
-    parser.add_argument('max_tolerance_perc', metavar = 'max_tolerance_perc', type=str,
+    parser.add_argument('max_tolerance_perc', metavar = 'max_tolerance_perc', type=float,
                        help='Maximum tolerated false positive percentage')
 
     args = parser.parse_args()
@@ -71,16 +86,8 @@ if __name__ == "__main__":
     if len(test_path_list) == 0:
         exit()
 
-    print "Initializing testing for all test files...\n-------------"
+    #################
 
-    init_and_test_on_single_file(args.word_size, 
-        args.init_path, 
-        test_path_list[0], 
-        float(args.max_tolerance_perc))
+    test1(args.word_size, args.init_path, args.test_paths.split(','), args.max_tolerance_perc)
 
-    if len(test_path_list) > 1:
-        init_and_test_on_multiple_files(
-            args.word_size, 
-            args.init_path, 
-            test_path_list, 
-            float(args.max_tolerance_perc))
+    
