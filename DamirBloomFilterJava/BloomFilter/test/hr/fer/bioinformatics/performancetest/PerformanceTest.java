@@ -128,7 +128,7 @@ public class PerformanceTest {
 				performanceResult.append("Time for word checking: ").append(TimeUnit.MILLISECONDS.convert(diff2, TimeUnit.NANOSECONDS)).append(" ms\n");
 				performanceResult.append("Number of words correctly classified / Number of words checked -> ")
 					.append(numberOfWordsCorrectlyClassified).append(" / ").append(numberOfWordsChecked).append("\n");
-				performanceResult.append("For ").append(numberOfWords).append(" in init file, and twice as that in testing file, total time is: ").append(TimeUnit.MILLISECONDS.convert(diff + diff2, TimeUnit.NANOSECONDS)).append(" ms\n");
+				performanceResult.append("For ").append(numberOfWords).append(" words in init file, and twice as that in testing file, total time is: ").append(TimeUnit.MILLISECONDS.convert(diff + diff2, TimeUnit.NANOSECONDS)).append(" ms\n*******************\n\n");
 			    
 			} catch (Exception e) {
 				System.out.println("One of the files with names: " + wordsAddedFiles[fileIndex] + ", " + wordsTestFiles[fileIndex]
@@ -138,7 +138,7 @@ public class PerformanceTest {
 			}
 		}
 		
-		System.out.println(performanceResult.toString());		
+		System.out.print(performanceResult.toString());		
 	}
 	
 }
