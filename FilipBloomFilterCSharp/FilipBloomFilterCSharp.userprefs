@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="BloomFilter/Hashes.cs">
+    <Files>
+      <File FileName="BloomFilter/FASTAReader.cs" Line="9" Column="13" />
+      <File FileName="BloomFilter/BloomFilter.cs" Line="39" Column="22" />
+      <File FileName="BloomFilter/Hashes.cs" Line="58" Column="35" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
