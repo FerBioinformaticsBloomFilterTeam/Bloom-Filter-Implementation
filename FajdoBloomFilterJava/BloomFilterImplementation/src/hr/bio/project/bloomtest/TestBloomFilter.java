@@ -8,17 +8,19 @@ public class TestBloomFilter {
 	private int k;
 	private int m;
 
-	public TestBloomFilter(int size) {
-		this.size = size;
-		double p = 0.1;
+	public TestBloomFilter(int size, String ps) {
+		this.size = size/20;
+		double p = Double.parseDouble(ps);
 		m = (int) ( Math.ceil(((-Math.log10(p)/Math.log10(2))*this.size)/Math.log(2)));
 		filter = new char[m];
 		for (int i=0; i<filter.length; i++) {
 			filter[i] = 0;
 		}
 		hasher = new TestHasher();
-		k = (int) -Math.log(p);
+		k = (int) Math.ceil(-Math.log(p));
 		hashes = new int[k];
+		//System.out.println(m);
+		//System.out.println(k);
 	}
 	
 	public void addElemToBloom(String fastaPart) {

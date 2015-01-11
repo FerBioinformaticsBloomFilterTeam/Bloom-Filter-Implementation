@@ -8,7 +8,7 @@ public class FastaWorker {
 		FastaFileReader readFasta = new FastaFileReader(args[0]);
 		fastaAll = readFasta.getFastaString();
 		FastaStringProcessor processor = new FastaStringProcessor(fastaAll);
-		BloomFilter bloomsky = new BloomFilter(fastaAll.length());
+		BloomFilter bloomsky = new BloomFilter(fastaAll.length(), args[1]);
 		processor.processFastaString(bloomsky);
 		if (bloomsky.testElemInBloom("AGATATGGAACGATTTACTC")) {
 			System.out.println("Probably in");
