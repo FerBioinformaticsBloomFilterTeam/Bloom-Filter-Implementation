@@ -10,7 +10,7 @@ public class FastaWorker {
 		FastaStringProcessor processor = new FastaStringProcessor(fastaAll);
 		BloomFilter bloomsky = new BloomFilter(fastaAll.length());
 		processor.processFastaString(bloomsky);
-		if (bloomsky.testElemInBloom("TGGGTAAAGCGCAAGGAT")) {
+		if (bloomsky.testElemInBloom("AGATATGGAACGATTTACTC")) {
 			System.out.println("Probably in");
 		}
 	}

@@ -5,42 +5,54 @@ public class BloomFilter {
 	private int size;
 	private char[] filter;
 	private Hasher hasher;
+	private int[] hashes;
+	private int k;
+	private int m;
 
 	public BloomFilter(int size) {
 		this.size = size;
-		filter = new char[size/2+1];
+		double p = 0.1;
+		m = (int) ( Math.ceil(((-Math.log10(p)/Math.log10(2))*this.size)/Math.log(2)));
+		filter = new char[m];
 		for (int i=0; i<filter.length; i++) {
 			filter[i] = 0;
 		}
 		hasher = new Hasher();
+		k = (int) -Math.log(p);
+		hashes = new int[k];
 	}
 	
 	public void addElemToBloom(String fastaPart) {
-		int hashFNV, hashMurmur, hashJenkins;
+		int hashFNV, hashMurmur;
 		hashFNV = (int) hasher.FNVhash(fastaPart);
 		hashFNV = hashFNV % (size*4);
 		hashMurmur = (int) hasher.murmurHash(fastaPart);
 		hashMurmur = hashMurmur % (size*4);
-		hashJenkins = (int) hasher.jenkinsHash(fastaPart);
-		hashJenkins = hashJenkins % (size*4);
-		addBloom((char)(hashFNV%8), hashFNV/8);
-		addBloom((char)(hashMurmur%8), hashMurmur/8);
-		addBloom((char)(hashJenkins%8), hashJenkins/8);
+		for (int i=0; i<k; i++) {
+			hashes[i] = (hashFNV + hashMurmur*i) % m;
+			addBloom((char)(hashes[i]%8), hashes[i]/8);
+		}
 	}
 	
 	public boolean testElemInBloom(String fastaPart) {
-		int hashFNV, hashMurmur, hashJenkins;
-		int[] test = new int[3];
+		int hashFNV, hashMurmur;
 		hashFNV = (int) hasher.FNVhash(fastaPart);
 		hashFNV = hashFNV % (size*4);
 		hashMurmur = (int) hasher.murmurHash(fastaPart);
 		hashMurmur = hashMurmur % (size*4);
-		hashJenkins = (int) hasher.jenkinsHash(fastaPart);
-		hashJenkins = hashJenkins % (size*4);
-		test[0] = testBloom((char)(hashFNV%8), hashFNV/8);
-		test[1] = testBloom((char)(hashMurmur%8), hashMurmur/8);
-		test[2] = testBloom((char)(hashJenkins%8), hashJenkins/8);
-		if ((test[0] == 1)&&(test[1] == 1)&&(test[2] == 1)) {
+		for (int i=0; i<k; i++) {
+			hashes[i] = (hashFNV + hashMurmur*i) % m;
+			addBloom((char)(hashes[i]%8), hashes[i]/8);
+		}
+		boolean probably_in = true;
+		int test = 0;
+		for (int i=0; i<k; i++) {
+			test = testBloom((char)(hashes[i]%8), hashes[i]/8);
+			if (test == 0) {
+				probably_in = false;
+			}
+		}
+		if (probably_in == true) {
 			return true;
 		} else {
 			return false;
