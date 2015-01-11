@@ -26,8 +26,8 @@ int main(int argc, char** argv)
     char *wrd;
     uint32_t num_pos = 0, num_neg = 0, neg = 0, pos = 0;
     int filter_res;
-    clock_t time1, time2, time3;
-    long millis1, millis2;
+    struct timeval time1, time2, time3;
+    double millis1, millis2;
     double p;
 
     if (argc != 5) {
@@ -50,7 +50,7 @@ int main(int argc, char** argv)
         exit(2);
     }
 
-    time1 = clock();
+    gettimeofday(&time1, 0);
     fscanf(dna, "%d", &n);
     init_opt(p, n);
     for (i = 0; i < n; i++) {
@@ -66,7 +66,7 @@ int main(int argc, char** argv)
     print_filter();
     #endif // DEBUG
     fclose(dna);
-    time2 = clock();
+    gettimeofday(&time2, 0);
     test_f = fopen(argv[3], "r");
     while (1) {
         int cl;
@@ -92,13 +92,13 @@ int main(int argc, char** argv)
         }
         memset(wrd, 0, word_size + 1);
     }
-    time3 = clock();
-    millis1 = (double)(time2 - time1) / CLOCKS_PER_SEC * 1000.0;
-    millis2 = (double)(time3 - time2) / CLOCKS_PER_SEC * 1000.0;
+    gettimeofday(&time3, 0);
+    millis1 = ((time2.tv_sec - time1.tv_sec) * 1000000 + (time2.tv_usec - time1.tv_usec)) / 1000.0;
+    millis2 = ((time3.tv_sec - time2.tv_sec) * 1000000 + (time3.tv_usec - time2.tv_usec)) / 1000.0;
     printf("Pos results: %u / %u\n", pos, num_pos);
     printf("Neg results: %u / %u\n", neg, num_neg);
-    printf("Time required for reading: %ld ms\n", millis1);
-    printf("Time required for querying: %ld ms\n", millis2);
+    printf("Time required for reading: %lf ms\n", millis1);
+    printf("Time required for querying: %lf ms\n", millis2);
     fclose(test_f);
     free(wrd);
     clear();
