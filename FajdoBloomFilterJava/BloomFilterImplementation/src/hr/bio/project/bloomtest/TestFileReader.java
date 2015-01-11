@@ -8,10 +8,12 @@ import java.util.List;
 
 public class TestFileReader {
 	private String declaration;
-	private String fastaFile;
+	private String fastaFile1;
+	private String fastaFile2;
 	
-	public TestFileReader(String fastaFile) {
-		this.fastaFile = fastaFile;
+	public TestFileReader(String fastaFile1, String fastaFile2) {
+		this.fastaFile1 = fastaFile1;
+		this.fastaFile2 = fastaFile2;
 	}
 	
 	public String getFastaString() {
@@ -21,7 +23,7 @@ public class TestFileReader {
 		StringBuilder fastaAllBuilder = new StringBuilder();
 		
 		try {
-			input= new BufferedReader(new FileReader(this.fastaFile));
+			input= new BufferedReader(new FileReader(this.fastaFile1));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -46,4 +48,31 @@ public class TestFileReader {
 		}
 		return fastaAllBuilder.toString();
 	}
+	
+	public List<String> getTestList() {
+		BufferedReader input = null;
+		String fastaLine;
+		List<String> lista = new ArrayList<String>();
+		
+		try {
+			input= new BufferedReader(new FileReader(this.fastaFile2));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			while ((fastaLine = input.readLine()) != null) {
+				lista.add(fastaLine);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			input.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return lista;
+	}
+	
 }

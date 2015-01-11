@@ -42,7 +42,6 @@ public class BloomFilter {
 		hashMurmur = hashMurmur % (size*4);
 		for (int i=0; i<k; i++) {
 			hashes[i] = (hashFNV + hashMurmur*i) % m;
-			addBloom((char)(hashes[i]%8), hashes[i]/8);
 		}
 		boolean probably_in = true;
 		int test = 0;

@@ -33,15 +33,14 @@ public class TestBloomFilter {
 		}
 	}
 	
-	public boolean testElemInBloom(String fastaPart) {
+	public String testElemInBloom(String testPart) {
 		int hashFNV, hashMurmur;
-		hashFNV = (int) hasher.FNVhash(fastaPart);
+		hashFNV = (int) hasher.FNVhash(testPart);
 		hashFNV = hashFNV % (size*4);
-		hashMurmur = (int) hasher.murmurHash(fastaPart);
+		hashMurmur = (int) hasher.murmurHash(testPart);
 		hashMurmur = hashMurmur % (size*4);
 		for (int i=0; i<k; i++) {
 			hashes[i] = (hashFNV + hashMurmur*i) % m;
-			addBloom((char)(hashes[i]%8), hashes[i]/8);
 		}
 		boolean probably_in = true;
 		int test = 0;
@@ -52,9 +51,9 @@ public class TestBloomFilter {
 			}
 		}
 		if (probably_in == true) {
-			return true;
+			return "1";
 		} else {
-			return false;
+			return "0";
 		}
 	}
 	
