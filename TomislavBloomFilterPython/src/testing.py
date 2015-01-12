@@ -1,4 +1,4 @@
-from simulator import fill_filter_from_file
+from bloom_filter_factory import fill_filter_from_file
 import argparse
 import cProfile, pstats, StringIO
 
