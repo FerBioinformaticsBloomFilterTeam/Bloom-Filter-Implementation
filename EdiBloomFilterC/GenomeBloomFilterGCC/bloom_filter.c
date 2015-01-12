@@ -40,7 +40,7 @@ void refresh_indices(void* obj, unsigned int len) {
     uint32_t fst_hash = hashes[0](obj, len, 2166136261u);
     uint32_t snd_hash = hashes[1](obj, len, 2166136261u);
     for(i = 0; i < k; i++) {
-        indices[i] = (fst_hash + i * snd_hash) % filter_bit_len;
+        indices[i] = (fst_hash + (i + 1) * snd_hash) % filter_bit_len;
     }
 }
 
