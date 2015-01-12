@@ -22,7 +22,7 @@ class bloom_filter(object):
     # constructor
     def __init__(self, vector_len, num_of_hashes):
         self.currDir = os.getcwd()
-        self.hash_lib = ctypes.CDLL(self.currDir + '/tomohashes.so')
+        self.hash_lib = ctypes.CDLL(os.path.join(self.currDir, 'tomohashes.so'))
         self.vector_len = vector_len
         self.num_of_hashes = num_of_hashes
 
@@ -37,20 +37,22 @@ class bloom_filter(object):
     def add(self, some_string):
         calced_hashes = self._mass_hash(some_string, self.num_of_hashes, self.vector_len)
         
-        for hash in calced_hashes:
-            self.hashes_set.add(hash)
+        #for hash in calced_hashes:
+        #    self.hashes_set.add(hash)
+        self.hashes_set.update(calced_hashes)
 
     # returns true if there's a match(possible false positives)
     def test(self, some_string):
         calced_hashes = self._mass_hash(some_string, self.num_of_hashes, self.vector_len)
 
-        for hash in calced_hashes:
+        return self.hashes_set.issuperset(calced_hashes)
+        #for hash in calced_hashes:
             # if any of the bits is not set, the item is definitely not inside
-            if hash not in self.hashes_set:
-                return False
+        #    if hash not in self.hashes_set:
+        #        return False
 
         # item is probably inside
-        return True
+        #return True
 
     # calculates hashnum different hashes of some_string while hashing only once
     # constrained to values in a range of 0 to bucketnum-1

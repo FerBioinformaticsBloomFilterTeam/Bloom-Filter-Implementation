@@ -21,11 +21,12 @@ extern "C" uint FnvHash(const char * word, int length) {
 	for (int i = 0; i < length; i++) {
 		currByte = (uint8_t) *(word + i);
 
-		hash = (hash & 4294967040) | ((hash & 255) ^ currByte);
+		// XOR last byte of hash with current byte and OR it with the rest
+		hash = (hash & 0xFFFFFF00) | ((hash & 255) ^ currByte);
 		hash *= fnv_prime;
-}
+	}
 
-return hash;
+	return hash;
 }
 
 extern "C" uint32_t MurmurHash(const char * word, int length, uint32_t seed) {
