@@ -46,7 +46,7 @@ void refresh_indices(void* obj, unsigned int len) {
     }
 }
 
-void print_filter() {
+void print_filter(void) {
     uint32_t i = 0;
     for (i = 0; i < filter_byte_len; i++) {
         printf("%02x", filter[i]);

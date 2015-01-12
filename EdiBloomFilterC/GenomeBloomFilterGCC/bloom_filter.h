@@ -19,4 +19,4 @@ void add(void* obj, unsigned int len);
 void clear(void);
 
 /*A function for printing the contents of the filer in a hexadecimal format.*/
-void print_filter();
+void print_filter(void);
