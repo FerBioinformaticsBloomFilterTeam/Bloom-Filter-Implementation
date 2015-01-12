@@ -11,12 +11,12 @@ uint8_t k = 0;
 uint32_t *indices = 0;
 
 void init_opt(float p, uint32_t n) {
-    float fbit = ceilf(-log2f(p) / logf(2.0f)  * n);
-    k = (uint8_t)ceilf(-log2f(p));
+    double fbit = ceil(-log2(p) / log(2.0)  * n);
+    k = (uint8_t)ceilf(-log(p));
     printf("Opt k: %u\n", k);
     hashes[0] = fnv_hash;
     hashes[1] = murmur_hash;
-    filter_bit_len = ceilf(fbit);
+    filter_bit_len = fbit;
     printf("Bit len: %u\n", filter_bit_len);
     filter_byte_len = filter_bit_len / 8 + (filter_bit_len % 8 != 0 ? 1 : 0);
     filter = (uint8_t *) calloc(filter_byte_len, 1);

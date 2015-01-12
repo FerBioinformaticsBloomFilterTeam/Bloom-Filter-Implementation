@@ -3,6 +3,7 @@
 #include <string.h>
 #include "hash_funs.h"
 #include "bloom_filter.h"
+#include <time.h>
 
 long get_file_size(FILE* f) {
     long t1, t2;
@@ -20,15 +21,19 @@ int main(int argc, char** argv)
     FILE *test_f;
     int word_size;
     long file_size;
-    uint32_t i = 0, j = 0;
+    uint32_t i = 0;
     uint32_t n;
     char *wrd;
     uint32_t num_pos = 0, num_neg = 0, neg = 0, pos = 0;
     int filter_res;
+    clock_t time1, time2, time3;
+    long millis1, millis2;
+    double p;
 
-    if (argc != 4) {
+    if (argc != 5) {
         fprintf(stderr,
-            "3 arguments expected: Path to the file with the genome, word size and path to the file with test cases");
+            "4 arguments expected: Path to the file with the genome,\
+            word size, path to the file with test cases and percentage of false positives.");
         exit(1);
     }
 
@@ -37,6 +42,7 @@ int main(int argc, char** argv)
     file_size = get_file_size(dna);
     n = file_size / word_size + (file_size % word_size != 0 ? 1 : 0);
     wrd = calloc(word_size + 1, sizeof(char));
+    p = atof(argv[4]);
 
     if (word_size <= 0 || file_size <= 0) {
         fprintf(stderr, "Negative file size or negative word length.");
@@ -44,18 +50,15 @@ int main(int argc, char** argv)
         exit(2);
     }
 
-    init_opt(0.01, n);
+    time1 = clock();
+    fscanf(dna, "%d", &n);
+    init_opt(p, n);
     for (i = 0; i < n; i++) {
-        char c;
-        j = 0;
-        while (j < word_size && (c = getc(dna)) != EOF) {
-            wrd[j] = c;
-            j++;
-        }
+        fscanf(dna, "%s", wrd);
         #ifdef DEBUG
         printf("Adding %s\n", wrd);
         #endif // DEBUG
-        add(wrd, j);
+        add(wrd, word_size);
         memset(wrd, 0, word_size + 1);
     }
 
@@ -63,6 +66,7 @@ int main(int argc, char** argv)
     print_filter();
     #endif // DEBUG
     fclose(dna);
+    time2 = clock();
     test_f = fopen(argv[3], "r");
     while (1) {
         int cl;
@@ -88,9 +92,13 @@ int main(int argc, char** argv)
         }
         memset(wrd, 0, word_size + 1);
     }
-
+    time3 = clock();
+    millis1 = (double)(time2 - time1) / CLOCKS_PER_SEC * 1000.0;
+    millis2 = (double)(time3 - time2) / CLOCKS_PER_SEC * 1000.0;
     printf("Pos results: %u / %u\n", pos, num_pos);
     printf("Neg results: %u / %u\n", neg, num_neg);
+    printf("Time required for reading: %ld ms\n", millis1);
+    printf("Time required for querying: %ld ms\n", millis2);
     fclose(test_f);
     free(wrd);
     clear();

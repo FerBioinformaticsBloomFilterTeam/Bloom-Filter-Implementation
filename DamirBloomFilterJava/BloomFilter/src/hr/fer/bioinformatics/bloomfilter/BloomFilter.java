@@ -172,10 +172,6 @@ public class BloomFilter {
 		
 		long numberOfHashFunctions = (long) Math.ceil((float) sizeOfBloomFilter * Math.log(2.0) / numberOfElements);
 		
-		if (numberOfHashFunctions > Integer.MAX_VALUE) {
-			return Integer.MAX_VALUE;
-		}
-		
 		return (int) numberOfHashFunctions;
 	}
 	
@@ -186,7 +182,7 @@ public class BloomFilter {
 	 * @param falsePositivePropability
 	 * @return int optimal size of bloom filter for specified number of elements and false positive propability
 	 */
-	public static int getSizeOfBloomFilter(int numberOfElements, float falsePositivePropability) {
+	public static int getSizeOfBloomFilter(int numberOfElements, double falsePositivePropability) {
 		if (numberOfElements <= 0) {
 			throw new NegativeArraySizeException("number of elements of bloom filter can not be negative or zero");
 		}
