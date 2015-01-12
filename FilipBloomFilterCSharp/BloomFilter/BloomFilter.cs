@@ -5,39 +5,73 @@ using System.Security.Cryptography;
 
 namespace BloomFilter
 {
-    public class BloomFilter
+    public class Filter
     {
+        public int N { get; private set; } // Expected number of elements that will be added to the filter
+        public int M { get; private set; } // Number of bits in Bit array
+        public int K { get; private set; } // Number of hash functions
+        public double P { get; private set; } // False positive probability
+        public BitArray Bits { get; private set; } // Bit array
+        private Murmur HashMurmur;
+        private FNV HashFNV;
 
-        private int m;
-        private int k;
-        private BitArray bitArray;
-        private uint[] hashes;
-        private int wordLength;
-        private double errorRate;
-
-        public BloomFilter()
+        public Filter(int n, double p)
         {
-
+            InitFilter(n, p);
         }
 
-        private void InitFilter()
+        public void InitFilter(int n, double p)
         {
-            hashes = new uint[k];
+            N = n;
+            P = p;
+            M = optimumM();
+            K = optimumK();
+            Bits = new BitArray(M);
+            HashMurmur = new Murmur();
+            HashFNV = new FNV();
         }
 
-        private uint ComputeHash(uint firstHash, uint secondHash, uint iteration)
+        public void Add(byte[] value)
         {
-            return (firstHash + (iteration * secondHash)) % Convert.ToUInt32(bitArray.Count);
+            uint primaryHash = HashMurmur.ComputeHash(value).ToUint32();
+            uint secondaryHash = HashFNV.ComputeHash(value).ToUint32();
+            for (int i = 0; i < K; i++)
+            {
+                int hash = CombineHash(primaryHash, secondaryHash, i);
+                this.Bits[hash] = true;
+            }
         }
 
-        private static int optimumK(int capacity, float errorRate)
+        public bool InFilter(byte[] value)
         {
-            return 0;
+            uint primaryHash = HashMurmur.ComputeHash(value).ToUint32();
+            uint secondaryHash = HashFNV.ComputeHash(value).ToUint32();
+            for (int i = 0; i < K; i++)
+            {
+                int hash = CombineHash(primaryHash, secondaryHash, i);
+                if (this.Bits[hash] == false)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
-        private static int optimumM(int capacity, double errorRate)
+        private int CombineHash(uint primaryHash, uint secondaryHash, int iteration)
         {
-            return 0;
+            return Convert.ToInt32((primaryHash + (iteration * secondaryHash)) % M);
+        }
+
+        private int optimumM()
+        {
+            // m = - n * ln(p) / ln(2)^2
+            return Convert.ToInt32(Math.Ceiling(-(double)N * Math.Log(P) / Math.Pow(Math.Log(2), 2)));
+        }
+
+        private int optimumK()
+        {
+            // k = m/n * ln(2)
+            return Convert.ToInt32(Math.Ceiling((double)M / (double)N * Math.Log(2)));
         }
     }
 }

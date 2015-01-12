@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Text;
 
 namespace BloomFilter
 {
@@ -20,26 +21,17 @@ namespace BloomFilter
 
         public void ReadFASTA()
         {
-            try
+            using (StreamReader sr = new StreamReader(FilePath))
             {
-                using (StreamReader sr = new StreamReader(FilePath))
+                StringBuilder sb = new StringBuilder();
+                string line;
+                while ((line = sr.ReadLine()) != null) 
                 {
-                    FastaWhole = "";
-
-                    string line;
-                    int counter = 0;
-                    while ((line = sr.ReadLine()) != null) 
-                    {
-                        if (line[0] == '>') continue;
-                        FastaWhole += line;
-                        counter++;
-                    }
+                    if (line[0] != '>')
+                        sb.Append(line);
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
+
+                FastaWhole = sb.ToString();
             }
         }
 
