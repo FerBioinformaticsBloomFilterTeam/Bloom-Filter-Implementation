@@ -27,6 +27,10 @@ class bloom_filter(object):
         self.num_of_hashes = num_of_hashes
 
         # initialize hash presence bit vector to 0
+        # the reason for using a set instead of a normal vector
+        # is to save even more on memory usage, and since
+        # checking if an item is in a set is O(1), execution speed
+        # should remain roughly the same
         self.hashes_set = set()
 
     # adds a string into the filter
@@ -54,6 +58,7 @@ class bloom_filter(object):
     def _mass_hash(self, some_string, hashnum, bucketnum):
         length = len(some_string)
 
+        # get fnv and murmur hash directly to save on object overhead
         fnv = ctypes.c_uint32(self.hash_lib.FnvHash(some_string, length)).value
         murmur = ctypes.c_uint32(self.hash_lib.MurmurHash(some_string, length, 16777619)).value
             
