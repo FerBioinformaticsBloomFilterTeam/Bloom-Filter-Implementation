@@ -3,18 +3,30 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloomFilter", "BloomFilter\BloomFilter.csproj", "{1A533AB2-4171-4234-935F-B872B29A3301}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloomFilterApp", "BloomFilterApp\BloomFilterApp.csproj", "{0CC68D0D-F7B0-40CF-AEE8-D2242DD0590D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloomFilterUnitTests", "BloomFilterUnitTests\BloomFilterUnitTests.csproj", "{F4745227-5072-46C3-8620-96BDEF7D9F9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CC68D0D-F7B0-40CF-AEE8-D2242DD0590D}.Debug|x86.ActiveCfg = Debug|x86
+		{0CC68D0D-F7B0-40CF-AEE8-D2242DD0590D}.Debug|x86.Build.0 = Debug|x86
+		{0CC68D0D-F7B0-40CF-AEE8-D2242DD0590D}.Release|x86.ActiveCfg = Release|x86
+		{0CC68D0D-F7B0-40CF-AEE8-D2242DD0590D}.Release|x86.Build.0 = Release|x86
 		{1A533AB2-4171-4234-935F-B872B29A3301}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{1A533AB2-4171-4234-935F-B872B29A3301}.Debug|x86.Build.0 = Debug|Any CPU
 		{1A533AB2-4171-4234-935F-B872B29A3301}.Release|x86.ActiveCfg = Release|Any CPU
 		{1A533AB2-4171-4234-935F-B872B29A3301}.Release|x86.Build.0 = Release|Any CPU
+		{F4745227-5072-46C3-8620-96BDEF7D9F9D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F4745227-5072-46C3-8620-96BDEF7D9F9D}.Debug|x86.Build.0 = Debug|Any CPU
+		{F4745227-5072-46C3-8620-96BDEF7D9F9D}.Release|x86.ActiveCfg = Release|Any CPU
+		{F4745227-5072-46C3-8620-96BDEF7D9F9D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = BloomFilter\BloomFilter.csproj
+		StartupItem = BloomFilterApp\BloomFilterApp.csproj
 	EndGlobalSection
 EndGlobal

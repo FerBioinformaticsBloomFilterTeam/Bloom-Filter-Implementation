@@ -1,12 +1,61 @@
 using System;
+using System.IO;
+using System.Collections.Generic;
 
 namespace BloomFilter
 {
     public class FASTAReader
     {
-        public FASTAReader()
-        {
+        public string FilePath;
+        public string FastaWhole;
+        public List<string> Words;
+        public int WordSize;
 
+        public FASTAReader(string filePath, int wordSize = 20)
+        {
+            FilePath = filePath;
+            WordSize = wordSize;
+            Words = new List<string>();
+        }
+
+        public void ReadFASTA()
+        {
+            try
+            {
+                using (StreamReader sr = new StreamReader(FilePath))
+                {
+                    FastaWhole = "";
+
+                    string line;
+                    int counter = 0;
+                    while ((line = sr.ReadLine()) != null) 
+                    {
+                        if (line[0] == '>') continue;
+                        FastaWhole += line;
+                        counter++;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public void SplitIntoWords()
+        {
+            for (int i = 0; i < FastaWhole.Length; i += WordSize)
+            {
+                if (FastaWhole.Length - i < WordSize)
+                {
+                    Words.Add(FastaWhole.Substring(i, FastaWhole.Length - i));
+                }
+                else
+                {
+                    Words.Add(FastaWhole.Substring(i, WordSize));
+                }
+            }
         }
     }
 }

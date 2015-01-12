@@ -3,6 +3,9 @@ using System.Security.Cryptography;
 
 namespace BloomFilter
 {
+    /// <summary>
+    /// Murmur3 Hash
+    /// </summary>
     public class Murmur: HashAlgorithm
     {
         protected const uint C1 = 0xcc9e2d51;
@@ -86,6 +89,9 @@ namespace BloomFilter
         }
     }
 
+    /// <summary>
+    /// FNV-1a
+    /// </summary>
     public class FNV: HashAlgorithm
     {
         private const uint FNVPrime = unchecked(16777619);
