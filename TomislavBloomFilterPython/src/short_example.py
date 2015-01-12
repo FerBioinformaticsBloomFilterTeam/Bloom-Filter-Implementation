@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from bloom_filter import *
 	
 print "Creating bloom filter with the following parameters:"

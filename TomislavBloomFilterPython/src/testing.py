@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from bloom_filter_factory import fill_filter_from_file
 import argparse
 import cProfile, pstats, StringIO
