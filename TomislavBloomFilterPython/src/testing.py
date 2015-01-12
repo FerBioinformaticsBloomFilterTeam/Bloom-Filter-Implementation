@@ -9,6 +9,7 @@ def test_filter_from_file(filepath, filter, print_successes = False, print_failu
     false_positives = 0
 
     # filter claims it does not contain the string but it does
+    # this should never happen, here for debugging purposes
     false_negatives = 0
 
     with open(filepath) as f:
@@ -19,7 +20,8 @@ def test_filter_from_file(filepath, filter, print_successes = False, print_failu
             expected_status = bool(int(expected_status))
 
             presence_status = filter.test(sequence)
-                
+            
+            # check if result matches what we expected
             if presence_status == expected_status:
                 if print_successes:
                     print "Testing for sequence " + sequence + " is a match"
@@ -94,6 +96,8 @@ if __name__ == "__main__":
     sortby = 'cumulative'
     ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
     ps.print_stats()
+
+    print "\nPrinting performance statistics:"
     print s.getvalue()
     #print "\nDone."
     #print "Total time duration: "
