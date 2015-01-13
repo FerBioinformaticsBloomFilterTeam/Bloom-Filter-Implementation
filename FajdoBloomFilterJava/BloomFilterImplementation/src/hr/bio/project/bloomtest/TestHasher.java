@@ -6,6 +6,7 @@ public class TestHasher {
 	private long c1, c2, r1, r2, m, n;
 	private long seed;
 	
+	// initializes prime numbers and constants
 	public TestHasher() {
 		String FNV_prime_string="16777619";
 		FNV_prime = Long.parseUnsignedLong(FNV_prime_string);
@@ -20,6 +21,7 @@ public class TestHasher {
 		seed = 16777619;
 	}
 	
+	// calculates the FNVhash and sends it back
 	public long FNVhash(String fastaPiece) {
 		long hash;
 		char[] hashFasta = fastaPiece.toCharArray();
@@ -34,6 +36,7 @@ public class TestHasher {
 		return hash;
 	}
 	
+	// calculates the murmur hash and sends it back
 	public long murmurHash(String fastaPiece) {
 		long hash;
 		int i;
@@ -82,6 +85,7 @@ public class TestHasher {
 		return hash;
 	}
 	
+	// calculates the Jenkins hash and sends it back
 	public long jenkinsHash(String fastaPiece) {
 		long hash = 0;
 		int i;

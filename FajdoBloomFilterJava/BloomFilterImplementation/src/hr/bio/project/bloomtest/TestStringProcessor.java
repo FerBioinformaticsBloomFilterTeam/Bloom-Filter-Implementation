@@ -9,6 +9,7 @@ public class TestStringProcessor {
 		this.fastaSize = fastaString.length();
 	}
 	
+	// cuts the string into pieces and adds it to the bloom filter
 	public void processFastaString(TestBloomFilter bloomey) {
 		
 		int fastaSizeCopy = fastaSize;

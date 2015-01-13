@@ -51,6 +51,7 @@ public class FastaWorker {
 		System.out.println("Done");
 	}
 
+	// Waits for the user to press enter
 	private static void pressEnter() {
 		BufferedReader input = null;
 		try {
