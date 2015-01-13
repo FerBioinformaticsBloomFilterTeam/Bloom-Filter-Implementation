@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit;
  *
  */
 public class PerformanceTest {
+	private static final int KB = 1024;
 	
 	public static void main(String[] args) {
 		
@@ -94,6 +95,7 @@ public class PerformanceTest {
 				
 				// Initialize bloom filter with words
 				BloomFilter bloomFilter = new BloomFilter(sizeOfBloomFilter, numberOfHashFunctions);
+				long memoryConsumption = sizeOfBloomFilter / 8 + 200;
 				while ((line = brWrodsAdded.readLine()) != null) {
 					if (line.isEmpty()) {
 						break;
@@ -128,7 +130,8 @@ public class PerformanceTest {
 				performanceResult.append("Time for word checking: ").append(TimeUnit.MILLISECONDS.convert(diff2, TimeUnit.NANOSECONDS)).append(" ms\n");
 				performanceResult.append("Number of words correctly classified / Number of words checked -> ")
 					.append(numberOfWordsCorrectlyClassified).append(" / ").append(numberOfWordsChecked).append("\n");
-				performanceResult.append("For ").append(numberOfWords).append(" words in init file, and twice as that in testing file, total time is: ").append(TimeUnit.MILLISECONDS.convert(diff + diff2, TimeUnit.NANOSECONDS)).append(" ms\n*******************\n\n");
+				performanceResult.append("For ").append(numberOfWords).append(" words in init file, and twice as that in testing file, total time is: ").append(TimeUnit.MILLISECONDS.convert(diff + diff2, TimeUnit.NANOSECONDS)).append(" ms\n")
+				.append("Memory Consumption: ").append(memoryConsumption).append(" bytes = ").append(memoryConsumption/KB).append(" kilobytes.").append("\n*******************\n\n");
 			    
 			} catch (Exception e) {
 				System.out.println("One of the files with names: " + wordsAddedFiles[fileIndex] + ", " + wordsTestFiles[fileIndex]
