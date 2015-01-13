@@ -1,4 +1,6 @@
 #!/bin/bash
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+cd $DIR
 cd src
 echo "Compiling hash library..."
 g++ tomoHashes.cpp -o tomohashes.so -shared -Wl,-soname,tomohashes -fPIC

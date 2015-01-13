@@ -13,16 +13,12 @@ class bloom_filter(object):
      -  test(some_string) returns false if the string is definitely not present,
         or true if it might be(false positives possible, though not often)
     """
-    def _get_murmur_hash(self, word):
-        return ctypes.c_uint32(self.hash_lib.MurmurHash(word, len(word), 16777619)).value
-
-    def _get_fnv_hash(self, word):
-        return ctypes.c_uint32(self.hash_lib.FnvHash(word, len(word))).value
 
     # constructor
     def __init__(self, vector_len, num_of_hashes):
-        self.currDir = os.getcwd()
-        self.hash_lib = ctypes.CDLL(os.path.join(self.currDir, 'tomohashes.so'))
+        my_dir = os.path.dirname(os.path.realpath(__file__))
+        
+        self.hash_lib = ctypes.CDLL(os.path.join(my_dir, 'tomohashes.so'))
         self.vector_len = vector_len
         self.num_of_hashes = num_of_hashes
 

@@ -2,8 +2,8 @@
 
 from bloom_filter_factory import fill_filter_from_file
 import argparse
-import cProfile, pstats, StringIO
 import time
+import resource
 
 # every line in the form of: <word> <expected_status>,
 # where expected_status is 0 or 1
@@ -39,41 +39,21 @@ def test_filter_from_file(filepath, filter, print_successes = False, print_failu
     return (false_positives, false_negatives)
 
 def init_and_test_on_single_file(init_path, test_path, max_tolerance_perc):
+    init_start = time.time()
     filter = fill_filter_from_file(init_path, max_tolerance_perc)
+    init_end = time.time()
 
+    mem_usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    print "Memory usage: %s MB" % (mem_usage / 1024)
+
+    test_start = time.time()
     false_positives, false_negatives = test_filter_from_file(test_path, filter, False, False)
+    test_end = time.time()
 
-    print "Single file test done. False positives = " + str(false_positives) \
-            + ", False negatives = " + str(false_negatives)
+    print "False positives: " + str(false_positives) \
+            + "\nFalse negatives: " + str(false_negatives)
 
-def init_and_test_on_multiple_files(init_path, test_path_list, max_tolerance_perc):
-    filter = fill_filter_from_file(init_path, max_tolerance_perc)
-    index = 1
-
-    for test_path in test_path_list:
-        false_positives, false_negatives = test_filter_from_file(test_path, filter, False, False)
-
-        print "Batch file test - test number " + str(index) + " done. " \
-                + "False positives = " + str(false_positives) \
-                + ", False negatives = " + str(false_negatives)
-
-        index += 1
-
-    print "Batch test DONE."
-
-def test1(init_path, test_path_list, max_tolerance_perc):
-    print "Initializing testing for all test files...\n-------------"
-
-    init_and_test_on_single_file(
-        init_path, 
-        test_path_list[0], 
-        max_tolerance_perc)
-
-    if len(test_path_list) > 1:
-        init_and_test_on_multiple_files(
-            init_path, 
-            test_path_list, 
-            max_tolerance_perc)
+    return (init_end - init_start, test_end - test_start)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Initialize and test a bloom filter.')
@@ -88,22 +68,10 @@ if __name__ == "__main__":
 
     ##############
 
-    print "Initializing and testing bloom filter...\n"
-    #pr = cProfile.Profile()
-    #pr.enable()
+    #print "Initializing and testing bloom filter..."
+    print "False positive rate: %s percent" % (args.max_tolerance_perc * 100)
 
-    start = time.time()
-    init_and_test_on_single_file(args.init_path, args.test_path, args.max_tolerance_perc)
-    end = time.time()
+    init_time, test_time = init_and_test_on_single_file(args.init_path, args.test_path, args.max_tolerance_perc)
 
-    print "\nTotal duration is: %s seconds.\n" % (end - start)
-    #pr.disable()
-    #s = StringIO.StringIO()
-    #sortby = 'cumulative'
-    #ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
-    #ps.print_stats()
-
-    #print "\nPrinting performance statistics:"
-    #print s.getvalue()
-    #print "\nDone."
-    #print "Total time duration: "
+    print "Init duration: %s seconds\nTest duration: %s seconds\nTotal duration: %s seconds." \
+            % (init_time, test_time, init_time + test_time)
