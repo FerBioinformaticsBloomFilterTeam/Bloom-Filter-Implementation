@@ -18,11 +18,13 @@ class bloom_filter(object):
     def __init__(self, vector_len, num_of_hashes):
         my_dir = os.path.dirname(os.path.realpath(__file__))
         
+        # build an object that wraps a custom c++ hash library
         self.hash_lib = ctypes.CDLL(os.path.join(my_dir, 'tomohashes.so'))
+        
         self.vector_len = vector_len
         self.num_of_hashes = num_of_hashes
 
-        # initialize hash presence bit vector to 0
+        # initialize hash presence bit vector to 0(empty)
         # the reason for using a set instead of a normal vector
         # is to save even more on memory usage, and since
         # checking if an item is in a set is O(1), execution speed
@@ -41,14 +43,15 @@ class bloom_filter(object):
     def test(self, some_string):
         calced_hashes = self._mass_hash(some_string, self.num_of_hashes, self.vector_len)
 
-        return self.hashes_set.issuperset(calced_hashes)
-        #for hash in calced_hashes:
-            # if any of the bits is not set, the item is definitely not inside
-        #    if hash not in self.hashes_set:
-        #        return False
+        #return self.hashes_set.issuperset(calced_hashes)
 
-        # item is probably inside
-        #return True
+        for hash in calced_hashes:
+            # if any of the bits is not set, the item is definitely not inside
+            if hash not in self.hashes_set:
+                return False
+
+        #item is probably inside
+        return True
 
     # calculates hashnum different hashes of some_string while hashing only once
     # constrained to values in a range of 0 to bucketnum-1
