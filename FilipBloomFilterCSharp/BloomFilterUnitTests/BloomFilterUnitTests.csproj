@@ -44,5 +44,9 @@
       <Project>{1A533AB2-4171-4234-935F-B872B29A3301}</Project>
       <Name>BloomFilter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BloomFilterApp\BloomFilterApp.csproj">
+      <Project>{0CC68D0D-F7B0-40CF-AEE8-D2242DD0590D}</Project>
+      <Name>BloomFilterApp</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

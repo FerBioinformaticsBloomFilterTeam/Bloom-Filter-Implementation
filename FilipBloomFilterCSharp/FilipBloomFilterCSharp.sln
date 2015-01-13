@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloomFilterApp", "BloomFilt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloomFilterUnitTests", "BloomFilterUnitTests\BloomFilterUnitTests.csproj", "{F4745227-5072-46C3-8620-96BDEF7D9F9D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloomFilterPerfTests", "BloomFilterPerfTests\BloomFilterPerfTests.csproj", "{53270D36-0647-44CE-81A8-E0905A2B6127}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -21,12 +23,16 @@ Global
 		{1A533AB2-4171-4234-935F-B872B29A3301}.Debug|x86.Build.0 = Debug|Any CPU
 		{1A533AB2-4171-4234-935F-B872B29A3301}.Release|x86.ActiveCfg = Release|Any CPU
 		{1A533AB2-4171-4234-935F-B872B29A3301}.Release|x86.Build.0 = Release|Any CPU
+		{53270D36-0647-44CE-81A8-E0905A2B6127}.Debug|x86.ActiveCfg = Debug|x86
+		{53270D36-0647-44CE-81A8-E0905A2B6127}.Debug|x86.Build.0 = Debug|x86
+		{53270D36-0647-44CE-81A8-E0905A2B6127}.Release|x86.ActiveCfg = Release|x86
+		{53270D36-0647-44CE-81A8-E0905A2B6127}.Release|x86.Build.0 = Release|x86
 		{F4745227-5072-46C3-8620-96BDEF7D9F9D}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{F4745227-5072-46C3-8620-96BDEF7D9F9D}.Debug|x86.Build.0 = Debug|Any CPU
 		{F4745227-5072-46C3-8620-96BDEF7D9F9D}.Release|x86.ActiveCfg = Release|Any CPU
 		{F4745227-5072-46C3-8620-96BDEF7D9F9D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = BloomFilterApp\BloomFilterApp.csproj
+		StartupItem = BloomFilterPerfTests\BloomFilterPerfTests.csproj
 	EndGlobalSection
 EndGlobal

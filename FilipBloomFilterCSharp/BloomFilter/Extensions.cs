@@ -19,6 +19,11 @@ namespace BloomFilter
             return BitConverter.ToUInt32(bytes, 0);
         }
 
+        public static int ToInt32(this byte[] bytes)
+        {
+            return BitConverter.ToInt32(bytes, 0);
+        }
+
         public static uint FMix(this uint h)
         {
             h = (h ^ (h >> 16)) * 0x85ebca6b;

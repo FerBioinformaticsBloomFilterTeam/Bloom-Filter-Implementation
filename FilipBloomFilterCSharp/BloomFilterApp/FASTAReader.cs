@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BloomFilter
+namespace BloomFilterApp
 {
     public class FASTAReader
     {
@@ -24,6 +24,7 @@ namespace BloomFilter
             using (StreamReader sr = new StreamReader(FilePath))
             {
                 StringBuilder sb = new StringBuilder();
+                FastaWhole = "";
                 string line;
                 while ((line = sr.ReadLine()) != null) 
                 {
@@ -48,6 +49,8 @@ namespace BloomFilter
                     Words.Add(FastaWhole.Substring(i, WordSize));
                 }
             }
+
+            FastaWhole = "";
         }
     }
 }
