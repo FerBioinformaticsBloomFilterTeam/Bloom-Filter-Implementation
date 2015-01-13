@@ -30,14 +30,36 @@ namespace BloomFilterApp
                 }
             }
 
-            FastaPath = getArgument("fasta");
+            FastaPath = GetArgument("fasta");
             if (FastaPath == null)
                 Console.WriteLine("No FASTA file selected.");
             else
+            {
                 Console.WriteLine("Selected FASTA file: " + FastaPath);
+                int tempWordSize;
+                if (int.TryParse(GetArgument("wordSize"), out tempWordSize))
+                {
+                    if (tempWordSize <= 0)
+                    {
+                        Console.WriteLine("Invalid word size. Has to be > 0.");
+                        Console.WriteLine("Using default word size value of 20.");
+                        WordSize = 20;
+                    }
+                    else
+                    {
+                        WordSize = tempWordSize;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Word size not specified.");
+                    Console.WriteLine("Using default word size value of 20.");
+                    WordSize = 20;
+                }
+            }
 
             double tempErrorRate;
-            if (double.TryParse(getArgument("errorRate"), out tempErrorRate))
+            if (double.TryParse(GetArgument("errorRate"), out tempErrorRate))
             {
                 if (tempErrorRate <= 0 || tempErrorRate >= 1)
                 {
@@ -57,27 +79,6 @@ namespace BloomFilterApp
                 ErrorRate = 0.05;
             }
 
-            int tempWordSize;
-            if (int.TryParse(getArgument("wordSize"), out tempWordSize))
-            {
-                if (tempWordSize <= 0)
-                {
-                    Console.WriteLine("Invalid word size. Has to be > 0.");
-                    Console.WriteLine("Using default word size value of 20.");
-                    WordSize = 20;
-                }
-                else
-                {
-                    WordSize = tempWordSize;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Word size not specified.");
-                Console.WriteLine("Using default word size value of 20.");
-                WordSize = 20;
-            }
-
             if (FastaPath != null)
             {
                 // Load FASTA
@@ -86,6 +87,7 @@ namespace BloomFilterApp
                 fastaReader.SplitIntoWords();
 
                 bloomFilter = new Filter(fastaReader.Words.Count, ErrorRate);
+                PrintFilterInfo();
 
                 foreach (string word in fastaReader.Words)
                 {
@@ -98,7 +100,7 @@ namespace BloomFilterApp
             {
                 // Add elements manually
                 bool validNumElements = false;
-                int numElements;
+                int numElements = 0;
                 while (!validNumElements)
                 {
                     Console.WriteLine("How many elements would you like to add? ");
@@ -123,6 +125,26 @@ namespace BloomFilterApp
                         Console.WriteLine("Please enter again.");
                     }
                 }
+
+                bloomFilter = new Filter(numElements, ErrorRate);
+                PrintFilterInfo();
+
+                while (numElements > 0)
+                {
+                    Console.WriteLine("Please enter item you wish to add: ");
+                    string toAdd = Console.ReadLine();
+                    if (toAdd.Length > 0)
+                    {
+                        bloomFilter.Add(toAdd);
+                        numElements--;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input.");
+                    }
+                }
+
+                testMembershipLoop();
             }
         }
 
@@ -133,24 +155,43 @@ namespace BloomFilterApp
             {
                 Console.WriteLine("Please enter item to be checked: ");
                 string toCheck = Console.ReadLine();
-                bool inFilter = bloomFilter.InFilter(toCheck);
-                if (inFilter)
+                if (toCheck.Length > 0)
                 {
-                    Console.WriteLine(toCheck + " probably is in filter (" + ((1 - ErrorRate) * 100) + "%).");
+                    bool inFilter = bloomFilter.InFilter(toCheck);
+                    if (inFilter)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine(toCheck + " probably is in filter (" + ((1 - ErrorRate) * 100) + "%).");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine(toCheck + " is not in filter.");
+                        Console.ResetColor();
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(toCheck + " is not in filter.");
+                    Console.WriteLine("Invalid input.");
                 }
             }
         }
 
-        public static string getArgument(string argName)
+        public static string GetArgument(string argName)
         {
             if (Arguments.ContainsKey(argName))
                 return Arguments[argName];
             else
                 return null;
+        }
+
+        public static void PrintFilterInfo()
+        {
+            Console.WriteLine("Bloom filter info: ");
+            Console.WriteLine("\t- Expected number of elements (N): " + bloomFilter.N);
+            Console.WriteLine("\t- Number of hash functions (K): " + bloomFilter.K);
+            Console.WriteLine("\t- Lengh of bit array (M): " + bloomFilter.M);
         }
 
         public static void PrintFilterValues( IEnumerable myList, int myWidth )  {

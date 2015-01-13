@@ -93,6 +93,7 @@ namespace BloomFilterPerfTests
                                     sw.Reset();
                                     sw.Start();
                                     int numFalsePositives = 0;
+                                    int numFalseNegatives = 0;
                                     int totalNumChecked = 0;
 
                                     while ((line = srTest.ReadLine()) != null)
@@ -107,6 +108,10 @@ namespace BloomFilterPerfTests
                                         {
                                             numFalsePositives++;
                                         }
+                                        if (exists == true && inFilter == false)
+                                        {
+                                            numFalseNegatives++;
+                                        }
                                         totalNumChecked++;
                                     }
                                     sw.Stop();
@@ -116,6 +121,7 @@ namespace BloomFilterPerfTests
                                     Console.WriteLine("\t\tChecked membership of " + totalNumChecked + " elements.");
                                     Console.WriteLine("\t\tChecked in time: " + sw.ElapsedMilliseconds + "ms [" + sw.ElapsedTicks + " ticks].");
                                     Console.WriteLine("\t\tNumber of false positives: " + numFalsePositives.ToString("N0") + " [" + (double)numFalsePositives / number + "~" + errorRate + "]");
+                                    Console.WriteLine("\t\tNumber of false negatives: " + numFalseNegatives.ToString("N0") + " [impossible]");
                                     Console.WriteLine("\t\tMemory Garbage Collector allocated: " + (stopBytes - startBytes).ToString("N0") + "B.");
                                 }
                             }
