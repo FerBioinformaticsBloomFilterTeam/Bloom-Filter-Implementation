@@ -26,7 +26,7 @@ namespace BloomFilter
             InitFilter(n, p, m, k);
         }
 
-        public void InitFilter(int n, double p, int m = 0, int k = 0)
+        private void InitFilter(int n, double p, int m = 0, int k = 0)
         {
             N = n;
             P = p;

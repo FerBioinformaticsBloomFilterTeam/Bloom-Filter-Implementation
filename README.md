@@ -24,9 +24,7 @@ b) EdiBloomFilterC
 c) FajdoBloomFilterJava
 
 d) FilipBloomFilterCSharp
-
 	Installation:
-
 		1. Download repository
 		2. If on Linux or Mac, install Mono by following [the instructions](http://www.mono-project.com/docs/getting-started/install/)
 			2.1. Extract FilipBloomFilterCSharp/FilipBloomFilterCSharp-Linux.tar.gz
@@ -42,6 +40,20 @@ d) FilipBloomFilterCSharp
 			errorRate => probability of false positives when checking if item is in bloom filter
 			Example usage form terminal:
 			$ mono BloomFilterApp.exe fasta=/home/manager/Desktop/eschericia-part.fa wordSize=10 errorRate=0.01
+
+	Testing performance:
+		Open project BloomFilterPerfTests and run it from IDE (Visual Studio, Mono,...) or run binaries.
+		Make sure path to {repository_clone}/test_cases is correct - you can send it as one any only parameter when running the app or change default path in code.
+		When run, statistics like time of execution of different parts and memory usage will be shown.
+	
+	Usage in other projects:
+		You will also be provided with BloomFilter.dll file which can be used in other projects.
+		Class of interest is Filter in namespace BloomFilter and its methods:
+		public Filter(int n, double p) => creates new Filter object that expects n items to be added and false positive probability of p
+		public void Add(string value) => gets ASCII bytes of string and adds it to filter
+		public void Add(byte[] value) => adds bytes to filter
+		public bool InFilter(string value) => returns whether or not string is in filter
+		public bool InFilter(byte[] value) => returns whether or not bytes are in filter
 
 e) TomislavBloomFilterPython
 
