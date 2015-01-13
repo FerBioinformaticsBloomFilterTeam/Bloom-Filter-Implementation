@@ -26,8 +26,8 @@ c) FajdoBloomFilterJava
 d) FilipBloomFilterCSharp
 
 e) TomislavBloomFilterPython
+
     Installation:
-        
         1. Download repository
         2. Run script TomislavBloomFilterPython/install.sh to install
             => This will compile tomoHashes.cpp into a library which is wrapped by the bloom_filter
