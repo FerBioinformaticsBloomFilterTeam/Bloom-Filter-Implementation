@@ -10,13 +10,23 @@ namespace BloomFilterPerfTests
     {
         public static void Main(string[] args)
         {
-            string testDirectory = "/home/manager/FerBioinformatika/Bloom-Filter-Implementation/test_cases";
+            string testDirectory = "";
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Please send test cases directory as parameter.");
+                Console.WriteLine("Trying to use default dir...");
+                testDirectory = "/home/manager/FerBioinformatika/Bloom-Filter-Implementation/test_cases";
+            }
+            else if (args.Length == 1)
+            {
+                testDirectory = args[0];
+            }
 
-            if(Directory.Exists(testDirectory)) 
+            if (Directory.Exists(testDirectory))
             {
                 Console.WriteLine("Test Directory:\n\t" + testDirectory);
                 Console.WriteLine("Test files:");
-                string [] fileEntries = Directory.GetFiles(testDirectory);
+                string[] fileEntries = Directory.GetFiles(testDirectory);
                 Stopwatch sw = new Stopwatch();
                 Filter bloomFilter;
 
@@ -105,13 +115,17 @@ namespace BloomFilterPerfTests
 
                                     Console.WriteLine("\t\tChecked membership of " + totalNumChecked + " elements.");
                                     Console.WriteLine("\t\tChecked in time: " + sw.ElapsedMilliseconds + "ms [" + sw.ElapsedTicks + " ticks].");
-                                    Console.WriteLine("\t\tNumber of false positives: " + numFalsePositives.ToString("N0") + " [" + (double)numFalsePositives/number + "~" + errorRate + "]");
+                                    Console.WriteLine("\t\tNumber of false positives: " + numFalsePositives.ToString("N0") + " [" + (double)numFalsePositives / number + "~" + errorRate + "]");
                                     Console.WriteLine("\t\tMemory Garbage Collector allocated: " + (stopBytes - startBytes).ToString("N0") + "B.");
                                 }
                             }
                         }
                     }
                 }
+            }
+            else
+            {
+                Console.WriteLine("Invalid dir.");
             }
         }
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace BloomFilter
 {
@@ -17,18 +18,35 @@ namespace BloomFilter
 
         public Filter(int n, double p)
         {
-            InitFilter(n, p);
+            InitFilter(n, p, 0, 0);
         }
 
-        public void InitFilter(int n, double p)
+        public Filter(int n, double p, int m = 0, int k = 0)
+        {
+            InitFilter(n, p, m, k);
+        }
+
+        public void InitFilter(int n, double p, int m = 0, int k = 0)
         {
             N = n;
             P = p;
-            M = optimumM();
-            K = optimumK();
+            if (m == 0)
+                M = optimumM();
+            else
+                M = m;
+            if (k == 0)
+                K = optimumK();
+            else
+                K = k;
             Bits = new BitArray(M);
             HashMurmur = new Murmur();
             HashFNV = new FNV();
+        }
+
+        public void Add(string value)
+        {
+            byte[] bytes = Encoding.ASCII.GetBytes(value);
+            Add(bytes);
         }
 
         public void Add(byte[] value)

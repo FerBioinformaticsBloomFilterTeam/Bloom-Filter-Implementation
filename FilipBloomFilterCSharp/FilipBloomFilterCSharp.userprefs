@@ -1,17 +1,28 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BloomFilterUnitTests/BloomFilterUnitTests.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BloomFilterApp/Program.cs">
     <Files>
-      <File FileName="BloomFilter/FASTAReader.cs" Line="9" Column="13" />
-      <File FileName="BloomFilter/BloomFilter.cs" Line="28" Column="33" />
-      <File FileName="BloomFilter/Hashes.cs" Line="2" Column="1" />
-      <File FileName="BloomFilterApp/Program.cs" Line="2" Column="19" />
-      <File FileName="BloomFilterUnitTests/BloomFilterUnitTests.cs" Line="11" Column="6" />
-      <File FileName="BloomFilter/Extensions.cs" Line="19" Column="20" />
+      <File FileName="BloomFilterApp/Program.cs" Line="18" Column="56" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.BloomFilterApp>
+    <MonoDevelop.Ide.CustomExecutionModes>
+      <Data Name="eschericia-part.fa" Id="ffe5bf54-79d9-4ec2-a960-6f3778e96c7b" ModeId="Default">
+        <CommandData>
+          <Item Key="MonoDevelop.Ide.Execution.CustomArgsCustomizer">
+            <Value Arguments="fasta=eschericia-part.fa" ctype="CustomArgsExecutionModeData">
+              <EnvironmentVariables />
+            </Value>
+          </Item>
+          <Item Key="MonoDevelop.Ide.Execution.MonoExecutionCustomizer">
+            <Value ctype="MonoExecutionParameters" />
+          </Item>
+        </CommandData>
+      </Data>
+    </MonoDevelop.Ide.CustomExecutionModes>
+  </MonoDevelop.Ide.ItemProperties.BloomFilterApp>
 </Properties>

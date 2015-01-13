@@ -33,6 +33,6 @@ Global
 		{F4745227-5072-46C3-8620-96BDEF7D9F9D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = BloomFilterPerfTests\BloomFilterPerfTests.csproj
+		StartupItem = BloomFilterApp\BloomFilterApp.csproj
 	EndGlobalSection
 EndGlobal
