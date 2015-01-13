@@ -4,9 +4,9 @@
 
 using namespace std;
 
-// source: http://stackoverflow.com/questions/4239993/determining-endianness-at-compile-time
 bool isLittleEndian()
 {
+    // source: http://stackoverflow.com/questions/4239993/determining-endianness-at-compile-time
 	short int number = 0x1;
 	char *numPtr = (char*)&number;
 	return (numPtr[0] == 1);
