@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>PackagingProject</ItemType>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E3D7CBC6-64ED-440C-B483-F87C6B08051A}</ProjectGuid>
+    <Packages>
+      <Packages>
+        <Package name="Linux Binaries">
+          <Builder targetFile="FilipBloomFilterCSharp-Linux.tar.gz" platform="Linux" configuration="Release|x86" ctype="BinariesZipPackageBuilder">
+            <ChildEntries>
+              <SolutionItemReference path="BloomFilterApp\BloomFilterApp.csproj" />
+              <SolutionItemReference path="BloomFilter\BloomFilter.csproj" />
+            </ChildEntries>
+            <RootEntry path="FilipBloomFilterCSharp.sln" id=":root:" />
+          </Builder>
+        </Package>
+        <Package name="Microsoft Windows Binaries">
+          <Builder targetFile="FilipBloomFilterCSharp-Windows.zip" platform="Windows" configuration="Release|x86" ctype="BinariesZipPackageBuilder">
+            <ChildEntries>
+              <SolutionItemReference path="BloomFilterApp\BloomFilterApp.csproj" />
+              <SolutionItemReference path="BloomFilter\BloomFilter.csproj" />
+            </ChildEntries>
+            <RootEntry path="FilipBloomFilterCSharp.sln" id=":root:" />
+          </Builder>
+        </Package>
+        <Package name="MSBuild (Visual Studio 2012) Sources">
+          <Builder targetFile="FilipBloomFilterCSharp-Windows-VS12Build.zip" format="MonoDevelop.Projects.FileFormat" ctype="SourcesZipPackageBuilder">
+            <ChildEntries>
+              <SolutionItemReference path="BloomFilterApp\BloomFilterApp.csproj" />
+              <SolutionItemReference path="BloomFilter\BloomFilter.csproj" />
+            </ChildEntries>
+            <RootEntry path="FilipBloomFilterCSharp.sln" id=":root:" />
+          </Builder>
+        </Package>
+      </Packages>
+    </Packages>
+  </PropertyGroup>
+</Project>
