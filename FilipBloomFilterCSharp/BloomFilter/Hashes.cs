@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 namespace BloomFilter
 {
     /// <summary>
-    /// Murmur3 Hash
+    /// Murmur3 hash 32-bit unsigned int implementation.
     /// </summary>
     public class Murmur: HashAlgorithm
     {
@@ -90,7 +90,7 @@ namespace BloomFilter
     }
 
     /// <summary>
-    /// FNV-1a
+    /// FNV-1a hash 32-bit unsigned int implementation.
     /// </summary>
     public class FNV: HashAlgorithm
     {

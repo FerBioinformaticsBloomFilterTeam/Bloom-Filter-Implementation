@@ -12,6 +12,11 @@ namespace BloomFilterApp
         public List<string> Words;
         public int WordSize;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BloomFilterApp.FASTAReader"/> class.
+        /// </summary>
+        /// <param name="filePath">FASTA file path.</param>
+        /// <param name="wordSize">Word size.</param>
         public FASTAReader(string filePath, int wordSize = 20)
         {
             FilePath = filePath;
@@ -19,6 +24,9 @@ namespace BloomFilterApp
             Words = new List<string>();
         }
 
+        /// <summary>
+        /// Loads FASTA into a string.
+        /// </summary>
         public void ReadFASTA()
         {
             using (StreamReader sr = new StreamReader(FilePath))
@@ -36,6 +44,9 @@ namespace BloomFilterApp
             }
         }
 
+        /// <summary>
+        /// Splits FASTA string into words and puts them in a list.
+        /// </summary>
         public void SplitIntoWords()
         {
             for (int i = 0; i < FastaWhole.Length; i += WordSize)

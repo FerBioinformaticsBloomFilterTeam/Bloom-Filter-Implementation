@@ -15,11 +15,10 @@ namespace BloomFilterApp
         private static Filter bloomFilter;
         public static void Main(string[] args)
         {
-            /*string bigFASTAPath = "/home/manager/FerBioinformatika/Bloom-Filter-Implementation/FajdoBloomFilterJava/BloomFilterImplementation/eschericia.fa";
-            string smallFASTAPath = "eschericia-part.fa";*/
-
+            #region Parse Arguments.
             Arguments = new Dictionary<string, string>();
 
+            // Load arguments into a dictionary.
             foreach (string argument in args)
             {
                 string[] splitted = argument.Split('=');
@@ -30,12 +29,15 @@ namespace BloomFilterApp
                 }
             }
 
+            // Check FASTA argument
             FastaPath = GetArgument("fasta");
             if (FastaPath == null)
                 Console.WriteLine("No FASTA file selected.");
             else
             {
                 Console.WriteLine("Selected FASTA file: " + FastaPath);
+
+                // Check word size argument
                 int tempWordSize;
                 if (int.TryParse(GetArgument("wordSize"), out tempWordSize))
                 {
@@ -58,6 +60,7 @@ namespace BloomFilterApp
                 }
             }
 
+            // Check false positive probability argument
             double tempErrorRate;
             if (double.TryParse(GetArgument("errorRate"), out tempErrorRate))
             {
@@ -78,27 +81,36 @@ namespace BloomFilterApp
                 Console.WriteLine("Using default value of 0.05.");
                 ErrorRate = 0.05;
             }
+            #endregion
 
             if (FastaPath != null)
             {
-                // Load FASTA
+                #region FASTA input,
+
+                // Read FASTA.
                 FASTAReader fastaReader = new FASTAReader(FastaPath, WordSize);
                 fastaReader.ReadFASTA();
                 fastaReader.SplitIntoWords();
 
+                // Create filter.
                 bloomFilter = new Filter(fastaReader.Words.Count, ErrorRate);
                 PrintFilterInfo();
 
+                // Add words from FASTA to filter.
                 foreach (string word in fastaReader.Words)
                 {
                     bloomFilter.Add(word);
                 }
 
-                testMembershipLoop();
+                // Check membership.
+                TestMembershipLoop();
+                #endregion
             }
             else
             {
-                // Add elements manually
+                #region Manual input.
+
+                // Get number of elements that user wishes to insert.
                 bool validNumElements = false;
                 int numElements = 0;
                 while (!validNumElements)
@@ -126,9 +138,11 @@ namespace BloomFilterApp
                     }
                 }
 
+                // Create bloom filter.
                 bloomFilter = new Filter(numElements, ErrorRate);
                 PrintFilterInfo();
 
+                // Insert elements.
                 while (numElements > 0)
                 {
                     Console.WriteLine("Please enter item you wish to add: ");
@@ -144,11 +158,16 @@ namespace BloomFilterApp
                     }
                 }
 
-                testMembershipLoop();
+                // Check membership.
+                TestMembershipLoop();
+                #endregion
             }
         }
 
-        public static void testMembershipLoop()
+        /// <summary>
+        /// Loops and prompts user for input that will be checked if it exists in filter.
+        /// </summary>
+        public static void TestMembershipLoop()
         {
             Console.WriteLine("You can now test if item is in filter.");
             while (true)
@@ -178,6 +197,11 @@ namespace BloomFilterApp
             }
         }
 
+        /// <summary>
+        /// Gets the argument.
+        /// </summary>
+        /// <returns>The argument.</returns>
+        /// <param name="argName">Argument name.</param>
         public static string GetArgument(string argName)
         {
             if (Arguments.ContainsKey(argName))
@@ -186,6 +210,9 @@ namespace BloomFilterApp
                 return null;
         }
 
+        /// <summary>
+        /// Prints basic information about bloom filter.
+        /// </summary>
         public static void PrintFilterInfo()
         {
             Console.WriteLine("Bloom filter info: ");
@@ -194,6 +221,11 @@ namespace BloomFilterApp
             Console.WriteLine("\t- Lengh of bit array (M): " + bloomFilter.M);
         }
 
+        /// <summary>
+        /// Prints values of BitArray in a nice grid.
+        /// </summary>
+        /// <param name="myList">BitArray.</param>
+        /// <param name="myWidth">Number of columns.</param>
         public static void PrintFilterValues( IEnumerable myList, int myWidth )  {
             Console.WriteLine("Bit Array Values:");
             int i = myWidth;
