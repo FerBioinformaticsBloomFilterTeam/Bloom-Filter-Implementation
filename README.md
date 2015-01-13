@@ -28,7 +28,7 @@ d) FilipBloomFilterCSharp
 	Installation:
 
 		1. Download repository
-		2. If on Linux, install Mono by following [the instructions](http://www.mono-project.com/docs/getting-started/install/)
+		2. If on Linux or Mac, install Mono by following [the instructions](http://www.mono-project.com/docs/getting-started/install/)
 			2.1. Extract FilipBloomFilterCSharp/FilipBloomFilterCSharp-Linux.tar.gz
 			2.2. Go to extracted directory containing BloomFilterApp.exe
 			2.2. Run the application from terminal using "mono BloomFilterApp.exe" (without quotation marks)
