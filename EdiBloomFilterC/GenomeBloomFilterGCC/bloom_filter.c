@@ -3,15 +3,15 @@
 #include <math.h>
 #include <stdlib.h>
 
-uint8_t *filter = 0;
+uint8_t *filter = NULL;
 uint32_t filter_bit_len = 0;
 uint32_t filter_byte_len = 0;
-uint32_t (*hashes[2])(void*, unsigned int, uint32_t);
+uint32_t (*hashes[2])(void*, unsigned int, uint32_t); //hash functions to use
 uint8_t k = 0;
-uint32_t *indices = 0;
+uint32_t *indices = NULL;
 
 void init_opt(float p, uint32_t n) {
-    double fbit = ceil(-log2(p) / log(2.0)  * n);
+    double fbit = ceil(-log2(p) / log(2.0)  * n); //consult wikipedia
     k = (uint8_t)ceilf(-log(p));
     printf("Opt k: %u\n", k);
     hashes[0] = fnv_hash;
@@ -35,16 +35,18 @@ void init(float p, uint32_t n, uint8_t k1) {
     indices = (uint32_t *) calloc(k, sizeof(uint32_t));
 }
 
+/*A helper function used for calculating k hash values (indices of the bloom filter)
+  using two hash algorithms.*/
 void refresh_indices(void* obj, unsigned int len) {
     uint32_t i = 0;
     uint32_t fst_hash = hashes[0](obj, len, 2166136261u);
     uint32_t snd_hash = hashes[1](obj, len, 2166136261u);
     for(i = 0; i < k; i++) {
-        indices[i] = (fst_hash + i * snd_hash) % filter_bit_len;
+        indices[i] = (fst_hash + (i + 1) * snd_hash) % filter_bit_len;
     }
 }
 
-void print_filter() {
+void print_filter(void) {
     uint32_t i = 0;
     for (i = 0; i < filter_byte_len; i++) {
         printf("%02x", filter[i]);
@@ -52,6 +54,8 @@ void print_filter() {
     printf("\n");
 }
 
+/*Helper function for getting a certain bits value from the bloom filter.
+  Returns 1 if the bit is set, 0 otherwise.*/
 int get_bit(uint32_t index) {
     uint32_t byte_ind, bit_ind;
     #ifdef DEBUG
@@ -83,6 +87,7 @@ int test(void* obj, unsigned int len) {
     return res;
 }
 
+/*Helper function for setting a certain bit in the filter.*/
 void set_bit(uint32_t index) {
     uint32_t byte_ind, bit_ind;
     #ifdef DEBUG
