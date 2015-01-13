@@ -12,6 +12,7 @@ namespace BloomFilterApp
         private static string FastaPath;
         private static double ErrorRate;
         private static int WordSize;
+        private static Filter bloomFilter;
         public static void Main(string[] args)
         {
             /*string bigFASTAPath = "/home/manager/FerBioinformatika/Bloom-Filter-Implementation/FajdoBloomFilterJava/BloomFilterImplementation/eschericia.fa";
@@ -84,14 +85,14 @@ namespace BloomFilterApp
                 fastaReader.ReadFASTA();
                 fastaReader.SplitIntoWords();
 
-                Filter bloomFilter = new Filter(fastaReader.Words.Count, ErrorRate);
+                bloomFilter = new Filter(fastaReader.Words.Count, ErrorRate);
 
                 foreach (string word in fastaReader.Words)
                 {
                     bloomFilter.Add(word);
                 }
 
-                PrintFilterValues(bloomFilter.Bits, 8);
+                testMembershipLoop();
             }
             else
             {
@@ -121,6 +122,25 @@ namespace BloomFilterApp
                     {
                         Console.WriteLine("Please enter again.");
                     }
+                }
+            }
+        }
+
+        public static void testMembershipLoop()
+        {
+            Console.WriteLine("You can now test if item is in filter.");
+            while (true)
+            {
+                Console.WriteLine("Please enter item to be checked: ");
+                string toCheck = Console.ReadLine();
+                bool inFilter = bloomFilter.InFilter(toCheck);
+                if (inFilter)
+                {
+                    Console.WriteLine(toCheck + " probably is in filter (" + ((1 - ErrorRate) * 100) + "%).");
+                }
+                else
+                {
+                    Console.WriteLine(toCheck + " is not in filter.");
                 }
             }
         }

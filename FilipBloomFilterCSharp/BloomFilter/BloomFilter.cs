@@ -60,6 +60,12 @@ namespace BloomFilter
             }
         }
 
+        public bool InFilter(string value)
+        {
+            byte[] bytes = Encoding.ASCII.GetBytes(value);
+            return InFilter(bytes);
+        }
+
         public bool InFilter(byte[] value)
         {
             uint primaryHash = HashMurmur.ComputeHash(value).ToUint32();
