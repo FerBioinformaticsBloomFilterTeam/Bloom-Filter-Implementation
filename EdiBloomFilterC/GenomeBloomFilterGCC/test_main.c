@@ -24,7 +24,7 @@ int main(int argc, char** argv)
     uint32_t i = 0;
     uint32_t n;
     char *wrd;
-    uint32_t num_pos = 0, num_neg = 0, neg = 0, pos = 0;
+    uint32_t num_neg = 0, neg = 0;
     int filter_res;
     struct timeval time1, time2, time3;
     double millis1, millis2;
@@ -74,17 +74,12 @@ int main(int argc, char** argv)
         if (res < 0)
             break;
         filter_res = test(wrd, strlen(wrd));
-        if (cl == 1) {
-            if (filter_res == 1) {
-                pos++;
-            }
-            num_pos++;
-        } else if (cl == 0) {
+        if (cl == 0) {
             if (filter_res == 0) {
                 neg++;
             }
             num_neg++;
-        } else {
+        } else if (cl != 1) {
             fprintf(stderr, "Error while reading the file.");
             fclose(test_f);
             free(wrd);
@@ -95,7 +90,6 @@ int main(int argc, char** argv)
     gettimeofday(&time3, 0);
     millis1 = ((time2.tv_sec - time1.tv_sec) * 1000000 + (time2.tv_usec - time1.tv_usec)) / 1000.0;
     millis2 = ((time3.tv_sec - time2.tv_sec) * 1000000 + (time3.tv_usec - time2.tv_usec)) / 1000.0;
-    printf("Pos results: %u / %u\n", pos, num_pos);
     printf("Neg results: %u / %u\n", neg, num_neg);
     printf("Time required for reading: %lf ms\n", millis1);
     printf("Time required for querying: %lf ms\n", millis2);

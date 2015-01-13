@@ -7,12 +7,14 @@ public class TestBloomFilter {
 	private int[] hashes;
 	private int k;
 	private int m;
+	private int memory;
 
+	// Calculates the optimum parameters and creates the filter array
 	public TestBloomFilter(int size, String ps) {
 		this.size = size/20;
 		double p = Double.parseDouble(ps);
 		m = (int) ( Math.ceil(((-Math.log10(p)/Math.log10(2))*this.size)/Math.log(2)));
-		filter = new char[m];
+		filter = new char[(int) Math.ceil(m/8)+1];
 		for (int i=0; i<filter.length; i++) {
 			filter[i] = 0;
 		}
@@ -21,8 +23,10 @@ public class TestBloomFilter {
 		hashes = new int[k];
 		//System.out.println(m);
 		//System.out.println(k);
+		memory = ((int) Math.ceil(m/8)+1) + k*4 + 8;
 	}
 	
+	// adds a sequence to the bloom filter
 	public void addElemToBloom(String fastaPart) {
 		int hashFNV, hashMurmur;
 		hashFNV = (int) hasher.FNVhash(fastaPart);
@@ -35,6 +39,7 @@ public class TestBloomFilter {
 		}
 	}
 	
+	// tests if a sequence is in the bloom filter
 	public String testElemInBloom(String testPart) {
 		int hashFNV, hashMurmur;
 		hashFNV = (int) hasher.FNVhash(testPart);
@@ -59,6 +64,7 @@ public class TestBloomFilter {
 		}
 	}
 	
+	// puts 1 in the index specified by the hash number
 	private void addBloom(char c, int index) {
 		switch(c) {
 			case 0: filter[index] = (char) (filter[index] | 0b10000000);
@@ -80,6 +86,7 @@ public class TestBloomFilter {
 		}
 	}
 	
+	// checks if 1 is written in the bit specified with the hash number
 	private int testBloom(char c, int index) {
 		int tester = 0;
 		switch(c) {
@@ -102,4 +109,9 @@ public class TestBloomFilter {
 		}
 		return tester;
 	}
+
+	public int getMemory() {
+		return memory;
+	}
+
 }

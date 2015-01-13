@@ -4,6 +4,7 @@
 #include "hash_funs.h"
 #include "bloom_filter.h"
 #include <time.h>
+#include <unistd.h>
 
 long get_file_size(FILE* f) {
     long t1, t2;
@@ -17,90 +18,107 @@ long get_file_size(FILE* f) {
 
 int main(int argc, char** argv)
 {
-    FILE *dna;
-    FILE *test_f;
-    int word_size;
-    long file_size;
+    FILE *add_file;
+    FILE *test_file;
     uint32_t i = 0;
-    uint32_t n;
-    char *wrd;
+    uint32_t n = 10;
+    uint32_t str_len = 0;
+    char *wrd; //buffer for reading a word from the file
+    char** addedwords; //arrays of words read
     uint32_t num_pos = 0, num_neg = 0, neg = 0, pos = 0;
     int filter_res;
-    clock_t time1, time2, time3;
-    long millis1, millis2;
-    double p;
+    double p = 0.2;
 
-    if (argc != 5) {
+    if (argc != 3) {
         fprintf(stderr,
-            "4 arguments expected: Path to the file with the genome,\
-            word size, path to the file with test cases and percentage of false positives.");
+            "2 arguments expected: Path to the file with words\
+ to add, and path to the file with words to test the filter with.");
         exit(1);
     }
 
-    dna = fopen(argv[1], "r");
-    word_size = atoi(argv[2]);
-    file_size = get_file_size(dna);
-    n = file_size / word_size + (file_size % word_size != 0 ? 1 : 0);
-    wrd = calloc(word_size + 1, sizeof(char));
-    p = atof(argv[4]);
+    //adding words to the filter
+    add_file = fopen(argv[1], "r");
 
-    if (word_size <= 0 || file_size <= 0) {
-        fprintf(stderr, "Negative file size or negative word length.");
-        fclose(dna);
+    if (add_file == NULL) {
+        fprintf(stderr, "No input file exists.");
         exit(2);
     }
 
-    time1 = clock();
-    fscanf(dna, "%d", &n);
+    wrd = calloc(20, sizeof(char));
+    addedwords = calloc(10, sizeof(char*));
     init_opt(p, n);
+
+    printf("\n");
     for (i = 0; i < n; i++) {
-        fscanf(dna, "%s", wrd);
-        #ifdef DEBUG
-        printf("Adding %s\n", wrd);
-        #endif // DEBUG
-        add(wrd, word_size);
-        memset(wrd, 0, word_size + 1);
+        fscanf(add_file, "%s", wrd);
+        str_len = strlen(wrd);
+        printf("Adding word \"%s\".\n", wrd);
+        add(wrd, str_len);
+        if (i < 3) {
+            printf("\nResulting filter (hex):\n");
+            print_filter();
+            printf("\n");
+            sleep(2);
+        }
+        addedwords[i] = calloc(str_len + 1, sizeof(char));
+        strcpy(addedwords[i], wrd);
+        memset(wrd, 0, 20);
+        sleep(2);
     }
 
-    #ifdef DEBUG
+    printf("\nResulting filter (hex):\n\n");
     print_filter();
-    #endif // DEBUG
-    fclose(dna);
-    time2 = clock();
-    test_f = fopen(argv[3], "r");
-    while (1) {
-        int cl;
-        int res = fscanf(test_f, "%s %d", wrd, &cl);
-        if (res < 0)
-            break;
-        filter_res = test(wrd, strlen(wrd));
-        if (cl == 1) {
-            if (filter_res == 1) {
-                pos++;
-            }
-            num_pos++;
-        } else if (cl == 0) {
-            if (filter_res == 0) {
-                neg++;
-            }
-            num_neg++;
+    fclose(add_file);
+
+    printf("\nTesting some words that passed through the filter:\n\n");
+
+    for (i = 0; i < 10; i+=3) {
+        char* wrd = addedwords[i];
+        if (test(wrd, strlen(wrd))) {
+            printf("The word \"%s\" has probably \
+passed through the filter.\n", wrd);
         } else {
-            fprintf(stderr, "Error while reading the file.");
-            fclose(test_f);
-            free(wrd);
-            exit(3);
+            printf("The word \"%s\" hasn't \
+passed through the filter.\n", wrd);
         }
-        memset(wrd, 0, word_size + 1);
+        sleep(2);
     }
-    time3 = clock();
-    millis1 = (double)(time2 - time1) / CLOCKS_PER_SEC * 1000.0;
-    millis2 = (double)(time3 - time2) / CLOCKS_PER_SEC * 1000.0;
-    printf("Pos results: %u / %u\n", pos, num_pos);
-    printf("Neg results: %u / %u\n", neg, num_neg);
-    printf("Time required for reading: %ld ms\n", millis1);
-    printf("Time required for querying: %ld ms\n", millis2);
-    fclose(test_f);
+
+    printf("\nNow for some words that didn't pass through the filter:\n\n");
+    test_file = fopen(argv[2], "r");
+    if (test_file == NULL) {
+        fprintf(stderr, "No test file exists.");
+        //cleanup
+        free(wrd);
+        for (i = 0; i < 10; i++) {
+            free(addedwords[i]);
+        }
+        free(addedwords);
+        clear();
+        exit(2);
+    }
+
+    for (i = 0; i < 10; i++) {
+        sleep(2);
+        fscanf(test_file, "%s", wrd);
+        str_len = strlen(wrd);
+        if (test(wrd, strlen(wrd))) {
+            printf("The word \"%s\" has probably \
+passed through the filter.\n", wrd);
+        } else {
+            printf("The word \"%s\" hasn't \
+passed through the filter.\n", wrd);
+        }
+        memset(wrd, 0, 20);
+    }
+    fclose(test_file);
+
+    //cleanup
     free(wrd);
+    for (i = 0; i < 10; i++) {
+        free(addedwords[i]);
+    }
+    free(addedwords);
     clear();
     return 0;
 }

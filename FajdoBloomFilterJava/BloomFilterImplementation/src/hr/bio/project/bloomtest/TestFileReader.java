@@ -16,6 +16,7 @@ public class TestFileReader {
 		this.fastaFile2 = fastaFile2;
 	}
 	
+	// returns the content of the file in a string
 	public String getFastaString() {
 		BufferedReader input = null;
 		String fastaLine;
@@ -49,6 +50,7 @@ public class TestFileReader {
 		return fastaAllBuilder.toString();
 	}
 	
+	// returns the lines of the file in a list
 	public List<String> getTestList() {
 		BufferedReader input = null;
 		String fastaLine;

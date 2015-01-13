@@ -1,4 +1,6 @@
 EdiBloomFilterC/dna_bakterija.txt
 EdiBloomFilterC/Citrobacter_sp_kte151.GCA_000398845.1.24.dna.toplevel.fa
-EdiBloomFilterC/GenomeBloomFilterGCC/bin
-EdiBloomFilterC/GenomeBloomFilterGCC/obj
+EdiBloomFilterC/GenomeBloomFilterGCC/bin/*
+EdiBloomFilterC/GenomeBloomFilterGCC/obj/*
+*.exe
+*.o
