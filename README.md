@@ -30,11 +30,11 @@ d) FilipBloomFilterCSharp
 		2. If on Linux or Mac, install Mono by following [the instructions](http://www.mono-project.com/docs/getting-started/install/)
 			2.1. Extract FilipBloomFilterCSharp/FilipBloomFilterCSharp-Linux.tar.gz
 			2.2. Go to extracted directory containing BloomFilterApp.exe
-			2.2. Run the application from terminal using "mono BloomFilterApp.exe" (without quotation marks)
+			2.3. Run the application from terminal using "mono BloomFilterApp.exe" (without quotation marks)
 		3. If on Windows
 			3.1. Unzip FilipBloomFilterCSharp/FilipBloomFilterCSharp-Windows.zip
 			3.2. Go to unzipped folder containing BloomFilterApp.exe
-			3.2. Run by clicking on BloomFilterApp.exe or from commandline using "BloomFilterApp.exe" (withou quotation marks)
+			3.3. Run by clicking on BloomFilterApp.exe or from commandline using "BloomFilterApp.exe" (withou quotation marks)
 		4. Regardless of OS, application can receive some optional parameters when running from terminal/cmd:
 			fasta => path to FASTA file that will be loaded when app is started
 			wordSize => if loading FASTA file, it will be split in word sizes of this length; default is 20
