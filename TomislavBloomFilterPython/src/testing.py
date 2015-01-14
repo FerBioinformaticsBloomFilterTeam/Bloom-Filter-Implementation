@@ -1,9 +1,10 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 from bloom_filter_factory import fill_filter_from_file
 import argparse
 import time
-import resource
+#import resource
 
 # every line in the form of: <word> <expected_status>,
 # where expected_status is 0 or 1
@@ -43,8 +44,8 @@ def init_and_test_on_single_file(init_path, test_path, max_tolerance_perc):
     filter = fill_filter_from_file(init_path, max_tolerance_perc)
     init_end = time.time()
 
-    mem_usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
-    print "Memory usage: %s MB" % (mem_usage / 1024)
+    #mem_usage = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+    #print "Memory usage(internal measure): %s kilobytes" % (mem_usage)
 
     test_start = time.time()
     false_positives, false_negatives = test_filter_from_file(test_path, filter, False, False)

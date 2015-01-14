@@ -3,12 +3,15 @@
 from bloom_filter import *
 	
 print "Creating bloom filter with the following parameters:"
-print "		Bit vector length = 50"
-print "		Number of different hashes = 4"
+print "		- Bit vector length = 50"
+print "		- Number of different hashes = 4"
 
 filter = bloom_filter(50, 4)
 
 print "Filter successfully created\n============="
+
+print "Now, we are about to add some sequences into the filter..."
+raw_input("Please press anything to continue...")
 
 print "Entering sequence: 'Tomislav'"
 filter.add("Tomislav")
@@ -38,6 +41,9 @@ print "Entering sequence: 'Livada'"
 filter.add("Livada")
 
 print "Finished adding elements\n-----------"
+print "Now we are about to test the filter for the presence of various elements" \
+      + " that are, and are not supposed to be in the filter."
+raw_input("Please press anything to continue...")
 
 print "Testing for sequence: 'Tomislav'"
 elemPresent = filter.test("Tomislav")
@@ -87,3 +93,5 @@ print ""
 print "Testing for sequence: 'Mate'"
 elemPresent = filter.test("Mate")
 print "Element present => " + str(elemPresent)
+
+print "\n That concludes this small example of the workings of bloom filters."
