@@ -1,0 +1,365 @@
+Please send test cases directory as parameter.
+Trying to use default dir...
+Test Directory:
+	/home/manager/FerBioinformatika/Bloom-Filter-Implementation/test_cases
+Test files:
+
+	words_added_100.txt
+		========================================
+		Adding 100 items to filter.
+		Using false positive probability: 0.5.
+		Added from file into filter in time: 12ms [126517 ticks].
+		Number of hash functions: 2
+		Number of bits in array: 145 [18B]
+		Memory Garbage Collector allocated: 1,032B.
+
+		Testing membership...
+		Checked membership of 200 elements.
+		Checked in time: 0ms [4184 ticks].
+		Number of false positives: 51 [0.51~0.5]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 20,632B.
+		========================================
+		Adding 100 items to filter.
+		Using false positive probability: 0.05.
+		Added from file into filter in time: 0ms [9547 ticks].
+		Number of hash functions: 5
+		Number of bits in array: 624 [78B]
+		Memory Garbage Collector allocated: 496B.
+
+		Testing membership...
+		Checked membership of 200 elements.
+		Checked in time: 0ms [1903 ticks].
+		Number of false positives: 6 [0.06~0.05]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 19,472B.
+		========================================
+		Adding 100 items to filter.
+		Using false positive probability: 0.1.
+		Added from file into filter in time: 0ms [8084 ticks].
+		Number of hash functions: 4
+		Number of bits in array: 480 [60B]
+		Memory Garbage Collector allocated: 496B.
+
+		Testing membership...
+		Checked membership of 200 elements.
+		Checked in time: 0ms [1662 ticks].
+		Number of false positives: 11 [0.11~0.1]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 19,408B.
+		========================================
+		Adding 100 items to filter.
+		Using false positive probability: 0.15.
+		Added from file into filter in time: 0ms [8015 ticks].
+		Number of hash functions: 3
+		Number of bits in array: 395 [49B]
+		Memory Garbage Collector allocated: 464B.
+
+		Testing membership...
+		Checked membership of 200 elements.
+		Checked in time: 0ms [1621 ticks].
+		Number of false positives: 16 [0.16~0.15]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 19,376B.
+		========================================
+		Adding 100 items to filter.
+		Using false positive probability: 0.2.
+		Added from file into filter in time: 0ms [8052 ticks].
+		Number of hash functions: 3
+		Number of bits in array: 335 [41B]
+		Memory Garbage Collector allocated: 464B.
+
+		Testing membership...
+		Checked membership of 200 elements.
+		Checked in time: 0ms [1635 ticks].
+		Number of false positives: 18 [0.18~0.2]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 19,408B.
+
+	words_added_1000.txt
+		========================================
+		Adding 1,000 items to filter.
+		Using false positive probability: 0.5.
+		Added from file into filter in time: 1ms [16609 ticks].
+		Number of hash functions: 2
+		Number of bits in array: 1443 [180B]
+		Memory Garbage Collector allocated: 568B.
+
+		Testing membership...
+		Checked membership of 2000 elements.
+		Checked in time: 1ms [17898 ticks].
+		Number of false positives: 550 [0.55~0.5]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 19,472B.
+		========================================
+		Adding 1,000 items to filter.
+		Using false positive probability: 0.05.
+		Added from file into filter in time: 1ms [13391 ticks].
+		Number of hash functions: 5
+		Number of bits in array: 6236 [779B]
+		Memory Garbage Collector allocated: 1,336B.
+
+		Testing membership...
+		Checked membership of 2000 elements.
+		Checked in time: 1ms [15883 ticks].
+		Number of false positives: 45 [0.045~0.05]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 20,120B.
+		========================================
+		Adding 1,000 items to filter.
+		Using false positive probability: 0.1.
+		Added from file into filter in time: 1ms [13674 ticks].
+		Number of hash functions: 4
+		Number of bits in array: 4793 [599B]
+		Memory Garbage Collector allocated: 1,040B.
+
+		Testing membership...
+		Checked membership of 2000 elements.
+		Checked in time: 1ms [15851 ticks].
+		Number of false positives: 106 [0.106~0.1]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 19,056B.
+		========================================
+		Adding 1,000 items to filter.
+		Using false positive probability: 0.15.
+		Added from file into filter in time: 1ms [13260 ticks].
+		Number of hash functions: 3
+		Number of bits in array: 3949 [493B]
+		Memory Garbage Collector allocated: 1,040B.
+
+		Testing membership...
+		Checked membership of 2000 elements.
+		Checked in time: 1ms [15505 ticks].
+		Number of false positives: 155 [0.155~0.15]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 19,352B.
+		========================================
+		Adding 1,000 items to filter.
+		Using false positive probability: 0.2.
+		Added from file into filter in time: 1ms [12933 ticks].
+		Number of hash functions: 3
+		Number of bits in array: 3350 [418B]
+		Memory Garbage Collector allocated: 824B.
+
+		Testing membership...
+		Checked membership of 2000 elements.
+		Checked in time: 1ms [15474 ticks].
+		Number of false positives: 186 [0.186~0.2]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 19,136B.
+
+	words_added_1000_000.txt
+		========================================
+		Adding 1,000,000 items to filter.
+		Using false positive probability: 0.5.
+		Added from file into filter in time: 597ms [5974245 ticks].
+		Number of hash functions: 2
+		Number of bits in array: 1442696 [180,337B]
+		Memory Garbage Collector allocated: 188,648B.
+
+		Testing membership...
+		Checked membership of 2000000 elements.
+		Checked in time: 1729ms [17294560 ticks].
+		Number of false positives: 562,923 [0.562923~0.5]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 199,224B.
+		========================================
+		Adding 1,000,000 items to filter.
+		Using false positive probability: 0.05.
+		Added from file into filter in time: 666ms [6666079 ticks].
+		Number of hash functions: 5
+		Number of bits in array: 6235225 [779,403B]
+		Memory Garbage Collector allocated: 607,840B.
+
+		Testing membership...
+		Checked membership of 2000000 elements.
+		Checked in time: 1733ms [17333755 ticks].
+		Number of false positives: 51,255 [0.051255~0.05]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 618,472B.
+		========================================
+		Adding 1,000,000 items to filter.
+		Using false positive probability: 0.1.
+		Added from file into filter in time: 660ms [6607454 ticks].
+		Number of hash functions: 4
+		Number of bits in array: 4792530 [599,066B]
+		Memory Garbage Collector allocated: -171,560B.
+
+		Testing membership...
+		Checked membership of 2000000 elements.
+		Checked in time: 1785ms [17856834 ticks].
+		Number of false positives: 102,184 [0.102184~0.1]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: -160,928B.
+		========================================
+		Adding 1,000,000 items to filter.
+		Using false positive probability: 0.15.
+		Added from file into filter in time: 646ms [6469823 ticks].
+		Number of hash functions: 3
+		Number of bits in array: 3948607 [493,575B]
+		Memory Garbage Collector allocated: -96,720B.
+
+		Testing membership...
+		Checked membership of 2000000 elements.
+		Checked in time: 1798ms [17981434 ticks].
+		Number of false positives: 151,064 [0.151064~0.15]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: -86,088B.
+		========================================
+		Adding 1,000,000 items to filter.
+		Using false positive probability: 0.2.
+		Added from file into filter in time: 648ms [6489565 ticks].
+		Number of hash functions: 3
+		Number of bits in array: 3349835 [418,729B]
+		Memory Garbage Collector allocated: -66,120B.
+
+		Testing membership...
+		Checked membership of 2000000 elements.
+		Checked in time: 1716ms [17160583 ticks].
+		Number of false positives: 207,475 [0.207475~0.2]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: -55,432B.
+
+	words_added_100_000.txt
+		========================================
+		Adding 100,000 items to filter.
+		Using false positive probability: 0.5.
+		Added from file into filter in time: 59ms [595439 ticks].
+		Number of hash functions: 2
+		Number of bits in array: 144270 [18,033B]
+		Memory Garbage Collector allocated: -399,536B.
+
+		Testing membership...
+		Checked membership of 200000 elements.
+		Checked in time: 168ms [1689076 ticks].
+		Number of false positives: 56,224 [0.56224~0.5]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: -381,288B.
+		========================================
+		Adding 100,000 items to filter.
+		Using false positive probability: 0.05.
+		Added from file into filter in time: 64ms [649769 ticks].
+		Number of hash functions: 5
+		Number of bits in array: 623523 [77,940B]
+		Memory Garbage Collector allocated: 61,064B.
+
+		Testing membership...
+		Checked membership of 200000 elements.
+		Checked in time: 165ms [1652988 ticks].
+		Number of false positives: 5,068 [0.05068~0.05]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 79,312B.
+		========================================
+		Adding 100,000 items to filter.
+		Using false positive probability: 0.1.
+		Added from file into filter in time: 63ms [636934 ticks].
+		Number of hash functions: 4
+		Number of bits in array: 479253 [59,906B]
+		Memory Garbage Collector allocated: -16,872B.
+
+		Testing membership...
+		Checked membership of 200000 elements.
+		Checked in time: 164ms [1646723 ticks].
+		Number of false positives: 10,480 [0.1048~0.1]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 1,376B.
+		========================================
+		Adding 100,000 items to filter.
+		Using false positive probability: 0.15.
+		Added from file into filter in time: 63ms [635868 ticks].
+		Number of hash functions: 3
+		Number of bits in array: 394861 [49,357B]
+		Memory Garbage Collector allocated: -9,336B.
+
+		Testing membership...
+		Checked membership of 200000 elements.
+		Checked in time: 160ms [1609144 ticks].
+		Number of false positives: 15,285 [0.15285~0.15]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 8,856B.
+		========================================
+		Adding 100,000 items to filter.
+		Using false positive probability: 0.2.
+		Added from file into filter in time: 61ms [610727 ticks].
+		Number of hash functions: 3
+		Number of bits in array: 334984 [41,873B]
+		Memory Garbage Collector allocated: -6,264B.
+
+		Testing membership...
+		Checked membership of 200000 elements.
+		Checked in time: 173ms [1737118 ticks].
+		Number of false positives: 20,545 [0.20545~0.2]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 11,928B.
+
+	words_added_10_000.txt
+		========================================
+		Adding 10,000 items to filter.
+		Using false positive probability: 0.5.
+		Added from file into filter in time: 6ms [64358 ticks].
+		Number of hash functions: 2
+		Number of bits in array: 14427 [1,803B]
+		Memory Garbage Collector allocated: -39,552B.
+
+		Testing membership...
+		Checked membership of 20000 elements.
+		Checked in time: 16ms [163642 ticks].
+		Number of false positives: 5,716 [0.5716~0.5]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: -20,464B.
+		========================================
+		Adding 10,000 items to filter.
+		Using false positive probability: 0.05.
+		Added from file into filter in time: 7ms [70861 ticks].
+		Number of hash functions: 5
+		Number of bits in array: 62353 [7,794B]
+		Memory Garbage Collector allocated: 6,280B.
+
+		Testing membership...
+		Checked membership of 20000 elements.
+		Checked in time: 16ms [165974 ticks].
+		Number of false positives: 494 [0.0494~0.05]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 25,368B.
+		========================================
+		Adding 10,000 items to filter.
+		Using false positive probability: 0.1.
+		Added from file into filter in time: 6ms [68488 ticks].
+		Number of hash functions: 4
+		Number of bits in array: 47926 [5,990B]
+		Memory Garbage Collector allocated: 8,320B.
+
+		Testing membership...
+		Checked membership of 20000 elements.
+		Checked in time: 16ms [165013 ticks].
+		Number of false positives: 964 [0.0964~0.1]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 19,408B.
+		========================================
+		Adding 10,000 items to filter.
+		Using false positive probability: 0.15.
+		Added from file into filter in time: 6ms [66121 ticks].
+		Number of hash functions: 3
+		Number of bits in array: 39487 [4,935B]
+		Memory Garbage Collector allocated: -2,224B.
+
+		Testing membership...
+		Checked membership of 20000 elements.
+		Checked in time: 16ms [160621 ticks].
+		Number of false positives: 1,555 [0.1555~0.15]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 16,864B.
+		========================================
+		Adding 10,000 items to filter.
+		Using false positive probability: 0.2.
+		Added from file into filter in time: 6ms [65807 ticks].
+		Number of hash functions: 3
+		Number of bits in array: 33499 [4,187B]
+		Memory Garbage Collector allocated: 5,776B.
+
+		Testing membership...
+		Checked membership of 20000 elements.
+		Checked in time: 15ms [159956 ticks].
+		Number of false positives: 2,081 [0.2081~0.2]
+		Number of false negatives: 0 [impossible]
+		Memory Garbage Collector allocated: 19,408B.

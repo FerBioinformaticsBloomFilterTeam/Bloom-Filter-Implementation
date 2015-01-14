@@ -55,7 +55,7 @@ namespace BloomFilterPerfTests
                         Console.ResetColor();
 
                         // Error rates we test.
-                        double[] errorRates = new double[4] { 0.05, 0.10, 0.15, 0.20 };
+                        double[] errorRates = new double[5] { 0.5, 0.05, 0.10, 0.15, 0.20 };
                         foreach (double errorRate in errorRates)
                         {
                             using (StreamReader srAdd = new StreamReader(filePath))
