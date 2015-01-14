@@ -22,6 +22,13 @@ There are five different implementations of bloom filter (http://en.wikipedia.or
 
 **b) EdiBloomFilterC**
 
+  Installation and startup:
+    1. Download the repository
+    2. Make sure you have "gcc" compiler on your system and that is added to the path
+    3. Open terminal
+    4. Go to folder EdiBloomFilterC/GenomeBloomFilterGCC
+    5. To start the showcase application run the script main.sh (for example with the command "bash main.sh")
+  
 **c) FajdoBloomFilterJava**
 	
 	Installation and startup:
