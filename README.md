@@ -16,9 +16,9 @@ There are five different implementations of bloom filter (http://en.wikipedia.or
 	Installation and startup:
 		1. Download repository
 		2. Download and install java 8 using step by step guide on http://tecadmin.net/install-oracle-java-8-jdk-8-ubuntu-via-ppa/
-		3a. Open terminal
-		4a. Go to folder DamirBloomFilterJava\Application
-		5a. To start application write command: java -jar BloomFilterStructureShowcase.jar
+		3 Open terminal
+		4 Go to folder DamirBloomFilterJava\Application
+		5 To start application write command: java -jar BloomFilterStructureShowcase.jar
 
 **b) EdiBloomFilterC**
 
@@ -34,9 +34,9 @@ There are five different implementations of bloom filter (http://en.wikipedia.or
 	Installation and startup:
 		1. Download repository from GitHub
 		2. Download and install java 8 using step by step guide on http://tecadmin.net/install-oracle-java-8-jdk-8-ubuntu-via-ppa/
-		3a. Open terminal
-		4a. Go to folder FajdoBloomFilterJava
-		5a. To start application write command: java -jar ShowcaseFilterApp.jar
+		3 Open terminal
+		4 Go to folder FajdoBloomFilterJava
+		5 To start application write command: java -jar ShowcaseFilterApp.jar
 
 **d) FilipBloomFilterCSharp**
 
