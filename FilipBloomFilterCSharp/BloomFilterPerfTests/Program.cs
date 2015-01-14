@@ -10,6 +10,7 @@ namespace BloomFilterPerfTests
     {
         public static void Main(string[] args)
         {
+            #if allInOne
             // Set path to test_cases.
             string testDirectory = "";
             if (args.Length == 0)
@@ -174,6 +175,111 @@ namespace BloomFilterPerfTests
             {
                 Console.WriteLine("Invalid dir.");
             }
+            #else
+            // Error rates we test.
+            string filePath = args[0];
+            string testPath = args[1];
+            double errorRate = Double.Parse(args[2]);
+            Stopwatch sw = new Stopwatch();
+            Filter bloomFilter;
+            using (StreamReader srAdd = new StreamReader(filePath))
+            {
+                #region Insertion into bloom filter.
+                Console.WriteLine("\t\t========================================");
+                // Start timer.
+                sw.Reset();
+                sw.Start();
+                string line;
+
+                // Get number of items that will be added.
+                int number = Convert.ToInt32(srAdd.ReadLine());
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\t\tAdding " + number.ToString("N0") + " items to filter.");
+                Console.WriteLine("\t\tUsing false positive probability: " + errorRate + ".");
+                Console.ResetColor();
+
+                // Call garbage collector so that we can measure memory each time "cleanly".
+                bloomFilter = null;
+                GC.Collect();
+                long startBytes = GC.GetTotalMemory(true);
+
+                // Create and initialize filter.
+                bloomFilter = new Filter(number, errorRate);
+                while ((line = srAdd.ReadLine()) != null)
+                {
+                    // Add to filter.
+                    bloomFilter.Add(Encoding.ASCII.GetBytes(line));
+                }
+
+                // Stop measuring time after all is added.
+                sw.Stop();
+
+                // Measure memory that Filter take up.
+                long stopBytes = GC.GetTotalMemory(true);
+
+                // Print statistics.
+                Console.WriteLine("\t\tAdded from file into filter in time: " + sw.ElapsedMilliseconds + "ms [" + sw.ElapsedTicks + " ticks].");
+                Console.WriteLine("\t\tNumber of hash functions: " + bloomFilter.K);
+                Console.WriteLine("\t\tNumber of bits in array: " + bloomFilter.Bits.Count + " [" + (bloomFilter.Bits.Count / 8).ToString("N0") + "B]");
+                Console.WriteLine("\t\tMemory Garbage Collector allocated: " + (stopBytes - startBytes).ToString("N0") + "B.");
+                #endregion
+
+                #region Test set membership.
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\n\t\tTesting membership...");
+                Console.ResetColor();
+
+                using (StreamReader srTest = new StreamReader(testPath))
+                {
+                    // Start timer.
+                    sw.Reset();
+                    sw.Start();
+                    int numFalsePositives = 0;
+                    int numFalseNegatives = 0;
+                    int totalNumChecked = 0;
+
+                    while ((line = srTest.ReadLine()) != null)
+                    {
+                        var split = line.Split('\t');
+
+                        // Get string that will be tested.
+                        string testString = split[0];
+
+                        // Get 100% correct membership.
+                        bool exists = split[1] == "0" ? false : true;
+
+                        // Test
+                        bool inFilter = bloomFilter.InFilter(Encoding.ASCII.GetBytes(testString));
+
+                        // Compare and check for false positives. False negatives should be impossible but show them anyway.
+                        if (exists == false && inFilter == true)
+                        {
+                            numFalsePositives++;
+                        }
+                        if (exists == true && inFilter == false)
+                        {
+                            numFalseNegatives++;
+                        }
+                        totalNumChecked++;
+                    }
+
+                    // Stop timer.
+                    sw.Stop();
+
+                    // Get memory usage.
+                    //GC.Collect();
+                    stopBytes = GC.GetTotalMemory(true);
+
+                    // Print out statistics.
+                    Console.WriteLine("\t\tChecked membership of " + totalNumChecked + " elements.");
+                    Console.WriteLine("\t\tChecked in time: " + sw.ElapsedMilliseconds + "ms [" + sw.ElapsedTicks + " ticks].");
+                    Console.WriteLine("\t\tNumber of false positives: " + numFalsePositives.ToString("N0") + " [" + (double)numFalsePositives / number + "~" + errorRate + "]");
+                    Console.WriteLine("\t\tNumber of false negatives: " + numFalseNegatives.ToString("N0") + " [impossible]");
+                    Console.WriteLine("\t\tMemory Garbage Collector allocated: " + (stopBytes - startBytes).ToString("N0") + "B.");
+                }
+                #endregion
+            }
+            #endif
         }
     }
 }
