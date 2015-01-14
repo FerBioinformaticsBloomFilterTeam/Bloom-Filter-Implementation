@@ -55,7 +55,7 @@ namespace BloomFilterPerfTests
                         Console.ResetColor();
 
                         // Error rates we test.
-                        double[] errorRates = new double[5] { 0.5, 0.05, 0.10, 0.15, 0.20 };
+                        double[] errorRates = new double[3] { 0.5, 0.05, 0.20 };
                         foreach (double errorRate in errorRates)
                         {
                             using (StreamReader srAdd = new StreamReader(filePath))
@@ -154,7 +154,7 @@ namespace BloomFilterPerfTests
                                     sw.Stop();
 
                                     // Get memory usage.
-                                    GC.Collect();
+                                    //GC.Collect();
                                     stopBytes = GC.GetTotalMemory(true);
 
                                     // Print out statistics.
